@@ -1,0 +1,5 @@
+@i_get_called_last
+@i_get_called_second
+@i_get_called_first
+def my_decorated_function():
+    return 1+2

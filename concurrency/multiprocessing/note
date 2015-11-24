@@ -1,0 +1,14 @@
+1.进程间通信
+    Queue # thread and process safe
+    Pipe # duplex connection
+2.进程同步
+    跟线程同步几乎相同
+
+3.进程间共享状态
+    *Shared memory
+        Value, Array
+    *Server process
+        Manager # 比共享内存要好, 支持的对象类型更多
+
+4.进程池
+    Pool
