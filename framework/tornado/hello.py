@@ -11,4 +11,5 @@ application = tornado.web.Application([
 
 if __name__ == "__main__":
     application.listen(8888)
+    print 'Server running on 0.0.0.0:8888'
     tornado.ioloop.IOLoop.instance().start()

@@ -384,10 +384,6 @@ sorted set
 create a instance without invoking init
     Date.__new__(Date)
 
-#TODO
-iterator and generator
-    iterator is a stream of data 
-    generator is a coroutine
 
 iter(callable, sentinel): callable is called until return sentinel
 
@@ -725,9 +721,6 @@ python on mac os
 os.walk('dir') --> (root, dirs, files)
 
 
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 pinject
 nose
