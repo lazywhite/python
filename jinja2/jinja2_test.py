@@ -19,3 +19,16 @@ print render_template('index.html', context)
 ## autoescape is disabled default
 ## manual escaping {{ user.username|e }} 
 ## is autoescape is enabled, mark expressions as safe{{ user.username|safe }}
+## macro
+## include
+## import 
+## math
+## comparision
+## logic
+## builtin filters
+## builtin test
+## global functions
+## assignments
+## block assignments
+## with statement
+## autoescape extension

@@ -21,14 +21,14 @@ def bsetter():
     After 3 seconds set the result of a.
     """
     gevent.sleep(3)
-    a.set('Hello!')
+    b.set('Hello!')
 
 def bwaiter():
     """
     After 3 seconds the get call will unblock after the setter
     puts a value into the AsyncResult.
     """
-    print(a.get())
+    print(b.get())
      
 gevent.joinall([
     gevent.spawn(asetter),

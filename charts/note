@@ -1,0 +1,7 @@
+brew upgrade freetype
+pip install numpy 
+vim setupext.py   'freetype2/ft2build.h'
+export DYLD_LIBRARY_PATH=/usr/local/include/
+python setup.py install 
+
+

@@ -1213,3 +1213,7 @@ py_compile compileall
 tox
     virtualenv-based automation of test activities
 cython
+
+
+
+cursor.execute('''str_to_date(%s, '%%Y-%%m-%%d')''') escape '%'
