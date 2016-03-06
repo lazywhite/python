@@ -1,25 +1,21 @@
-#!/usr/bin/python2.6
-
 # use class as decorator
-# the apply rule of multiple decorator is up to bottom
 # func = deco(func)
 # func(arg) = deco(func)(arg)
 
-#class Deco(object):
-#    def __init__(self,func):
-#        self.func = func
-#        
-#    def __call__(self,a_string):
-#        print 'deco print'
-#        self.func(a_string)
+class Deco(object):
+    def __init__(self,func):
+        self.func = func
+        
+    def __call__(self,a_string):
+        print 'deco print'
+        self.func(a_string)
 
-#@Deco
-#def f(a_string):
-#    print "func print" ,a_string
+@Deco
+def f(a_string):
+    print "func print" ,a_string
 
 
-#f('something')
-
+f('something')
 
 def deco_one(func):
     def _wrapper(arg):
@@ -33,6 +29,7 @@ def deco_two(func):
         func(arg)
     return _wrapper
 
+#func = deco_one(deco_two(func))
 
 @deco_one
 @deco_two

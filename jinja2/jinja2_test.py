@@ -18,7 +18,7 @@ print render_template('index.html', context)
 
 ## autoescape is disabled default
 ## manual escaping {{ user.username|e }} 
-## is autoescape is enabled, mark expressions as safe{{ user.username|safe }}
+## if autoescape is enabled, mark expressions as safe{{ user.username|safe }}
 ## macro
 ## include
 ## import 

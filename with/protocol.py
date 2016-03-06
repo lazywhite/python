@@ -5,6 +5,7 @@
 
 class Context(object):
     def __init__(self,name):
+        print 'initialized'
         self.name = name
 
     def __enter__(self):
@@ -19,4 +20,4 @@ class Context(object):
 
 with Context('bob') as f:
     print(f.name)
-    raise StopIteration('what')
+    #raise StopIteration('what')
