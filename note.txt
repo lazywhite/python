@@ -1205,4 +1205,9 @@ This is python's approach to *operator overloading* , allowing classes to define
 to language operators. (e.g., type(x).__getitem__(x,i) --> x.i )
 ```
 
----------------------
+
+## Tips
+### String format
+'{name} want to eat {food}'.format(name='cats', food='lalal')
+'{} is a {}'.format('This', 'placeholder')
+'{0} can be {1}'.format('string', 'formated')
