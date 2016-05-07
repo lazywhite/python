@@ -21,3 +21,8 @@ python manage.py makemigrations <app> # create migration files with ID
 
 
 <img src="{% static "my_app/myexample.jpg" %}" alt="My image"/>
+
+## internatioal in template
+{% load i18n %}
+{% trans "This is the title." %}
+

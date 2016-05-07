@@ -84,7 +84,15 @@ DATABASES = {
             'PASSWORD': '',
             'HOST': '127.0.0.1',
             'PORT': 3306,
-            }
+            },
+        'question': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'mysite',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': '127.0.0.1',
+            'PORT': 3306,
+            } 
         }
 
 
@@ -110,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'zh-cn'
+LANGUAGE_CODE = 'zh-CN'
 
 TIME_ZONE = 'Asia/Shanghai'
 
