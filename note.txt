@@ -1211,3 +1211,18 @@ to language operators. (e.g., type(x).__getitem__(x,i) --> x.i )
 '{name} want to eat {food}'.format(name='cats', food='lalal')
 '{} is a {}'.format('This', 'placeholder')
 '{0} can be {1}'.format('string', 'formated')
+
+operator.itemgetter
+operator.attrgetter
+operator.methodcaller
+
+collections.defaultdict
+collections.OrderedDict
+collections.deque
+collections.Counter
+sorted(iterable, key=sort_lambda)
+bisect.insort(iterable, item)
+setattr(obj, name, value)
+getattr(obj, name)
+delattr(obj, name)
+
