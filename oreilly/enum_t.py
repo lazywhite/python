@@ -18,3 +18,6 @@ class B(Enum):
 
 for i in B:
     print(i)
+
+
+test = Enum('test', ['good', 'bad'])
