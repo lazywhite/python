@@ -1,11 +1,10 @@
+import heapq
 from operator import itemgetter, methodcaller, attrgetter
-#  itemgetter('item')(obj) = obj['item']
-#  methodcaller('method', *args)(obj) = obj.method(*args)
-#  attrgetter('attr')(obj) = obj.'attr'
 
-## itemgetter: per object need has__getitem__
-## attrgetter: per object need __getattr__ 
 
+# 1. itemgetter
+# itemgetter('item')(obj) = obj['item']
+# itemgetter: per object need has__getitem__
 portfolio = [   
         {'name': 'IBM', 'shares': 100, 'price': 91.1},   
         {'name': 'AAPL', 'shares': 50, 'price': 543.22},
@@ -16,20 +15,29 @@ portfolio = [
     ]
 
 cheap = heapq.nsmallest(3, portfolio, key=itemgetter('price'))
-#cheap = heapq.nsmallest(3, portfolio, key=lambda s: s['price'])
+# or: cheap = heapq.nsmallest(3, portfolio, key=lambda s: s['price'])
 print(cheap)
 
 
-#rows = [
-#        {'fname': 'Brian', 'lname': 'Jones', 'uid': 1003},
-#        {'fname': 'David', 'lname': 'Beazley', 'uid': 1002},
-#        {'fname': 'John', 'lname': 'Cleese', 'uid': 1001},
-#        {'fname': 'Big', 'lname': 'Jones', 'uid': 1004}
-#        ]
+# 2. attrgetter
+# attrgetter('attr')(obj) = obj.'attr'
+# attrgetter: per object need __getattr__ 
+class User:
+    def __init__(self, uid):
+        self.uid = uid
 
-#rows_by_fname = sorted(rows, key=itemgetter('fname'))
-#rows_by_uid = sorted(rows, key=itemgetter('uid'))
-#rows_by_lfname = sorted(rows, key=itemgetter('lname','fname'))
-#print(rows_by_fname)
-#print(rows_by_uid)
-#print(rows_by_lfname)
+    def say(self):
+        print("hello")
+
+    def __repr__(self):
+        return "User: %s" % self.uid
+
+u = [User(100), User(20), User(101)]
+
+print(sorted(u, key=attrgetter('uid')))
+
+# methodcaller
+# methodcaller('method', *args)(obj) = obj.method(*args)
+for i in u:
+    methodcaller('say')(i)
+
