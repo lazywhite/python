@@ -12,7 +12,7 @@ print(list(b))
 print(list(dedup(a)))
 
 
-def dedupe(items, key=None):
+def dedup2(items, key=None):
     seen = set()
     for item in items:
         val = item if key is None else key(item)
@@ -21,6 +21,6 @@ def dedupe(items, key=None):
             seen.add(val)
 
 a = [ {'x':1, 'y':2}, {'x':1, 'y':3}, {'x':1, 'y':2}, {'x':2, 'y':4}]
-b = list(dedupe(a, key=lambda d: (d['x'],d['y'])))
-c = list(dedupe(a, key=lambda d: d['x']))
+b = list(dedup2(a, key=lambda d: (d['x'],d['y'])))
+c = list(dedup2(a, key=lambda d: d['x']))
 print(b,c)

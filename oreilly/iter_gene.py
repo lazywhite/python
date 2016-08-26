@@ -1,38 +1,43 @@
-#import sys
-#with open('/etc/passwd', 'r') as f:
-#    while True:
-#        line = next(f, None)
-#        if line is None:
-#            sys.exit(0)
-#        elif line.startswith('#'):
-#            pass
-#        else:
-#            print(line, end='')
-# ==========================
-#class Node:
-#    def __init__(self, value):
-#        self._value = value
-#        self._children = []
-#    def __repr__(self):
-#        return 'Node({!r})'.format(self._value)
+# 1. iterator
+class Node:
+    def __init__(self, value):
+        self._value = value
+        self._children = []
 
-#    def add_child(self, node):
-#        self._children.append(node)
+    def __repr__(self):
+        return 'Node({!r})'.format(self._value)
 
-#    def __iter__(self):
-#        return iter(self._children)
+    def add_child(self, node):
+        self._children.append(node)
 
-#root = Node(0)
-#child1 = Node(1)
-#child2 = Node(2)
+    def __iter__(self):
+        return iter(self._children)
 
-#root.add_child(child1)
-#root.add_child(child2)
-#b=iter(root)
-#print(next(b))
-#print(next(b))
-#for x in iter(root):
-#    print(x)
-# ==================
-with open('test.txt', 'wt', encoding='utf-8') as f:
-    print('hello', file=f)
+root = Node(0)
+child1 = Node(1)
+child2 = Node(2)
+
+root.add_child(child1)
+root.add_child(child2)
+b=iter(root)
+print(list(b))
+
+
+a = list(range(10))
+b = iter(a)
+print(type(b)) # --> listiterator
+
+
+
+
+# 2. generator
+
+def gen(n):
+    while n >= 0:
+        yield n
+        n -= 1
+
+
+g = gen(10)
+print(type(g))
+print(list(g))

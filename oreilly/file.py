@@ -15,15 +15,6 @@
 #    data = f.read(20)
 #    print(data)
 #    print(data.decode('utf-8'))
-
-# =========================
-#from functools import partial
-
-#def f(a,b,c,x=None):
-#    print(a,b,c,x)
-
-#me = partial(f,10,20,x=55)
-#print(me(30))
 # =========================
 
 #import os.path

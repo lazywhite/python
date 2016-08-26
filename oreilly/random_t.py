@@ -11,4 +11,5 @@ random.seed(1) ## same seed generate same random number
 print(random.random())
 
 
+print(random.sample(values, 3)) # get random K items from <collection>
 print(random.randint(10, 20))

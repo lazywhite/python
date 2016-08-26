@@ -17,14 +17,15 @@ with open('stock.csv') as f:
         else:
             result.append(Row(*line))
     print(result)
-#import json
-#data = { 'name' : {'first':'Lili', 'last':'Sende'}, 'share' : [1,2,100], 'price' : 30 }
-#a = json.dumps(data)
-# dumps : serial str into json format
-#print(a)
-#b = json.loads(a)
-# loads : deserial json into python object
-#print(b)
+
+import json
+data = { 'name' : {'first':'Lili', 'last':'Sende'}, 'share' : [1,2,100], 'price' : 30 }
+a = json.dumps(data)
+ dumps : serial str into json format
+print(a)
+b = json.loads(a)
+ loads : deserial json into python object
+print(b)
 
 #import sqlite3
 
@@ -46,8 +47,4 @@ with open('stock.csv') as f:
 #    print(row)
 
 #db.close()
-
-# base64
-# binaryascii
-# struct
 

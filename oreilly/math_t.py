@@ -31,5 +31,3 @@ print(type(a), type(b), type(c))
 print(math.isinf(a))
 print(math.isinf(b))
 print(math.isnan(c))
-
-
