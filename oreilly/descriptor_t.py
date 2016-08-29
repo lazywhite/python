@@ -27,7 +27,7 @@ p = Pair(2,3)
 
 # property is invoked by __getattribute__
 
-
+# lazy computed property
 class LazyProperty:
     def __init__(self, func):
         self.func = func
