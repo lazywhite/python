@@ -1,8 +1,6 @@
 # output installed packages in requirements format
 pip freeze > requirements.txt 
 
-
-
 ## cache requirements in local and install from local
 alias pipcache='pip install --download ${HOME}/.pip-packages'
 alias pipinstall='pip install --no-index --find-links=file://${HOME}/.pip-packages/'
