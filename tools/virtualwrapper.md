@@ -36,5 +36,4 @@ _virtualenv_auto_activate() {
 
 precmd_functions+=(_virtualenv_auto_activate)
 
-
 ```

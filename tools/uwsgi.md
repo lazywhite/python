@@ -5,6 +5,5 @@ yum install python python-devel
 
 pip install uwsgi
 
-
 ## options
 

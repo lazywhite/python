@@ -13,3 +13,10 @@ pipinstall -r requirements.txt # Install all requirements from the cache
 
 ## virtualenv
 virtualenv --always-copy --relocatable
+
+## ~/.pip/pip.conf
+```
+[global]
+index-url = http://pypi.douban.com/simple
+trusted-host = pypi.douban.com
+```
