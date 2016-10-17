@@ -65,32 +65,31 @@ Presentation
 
 ## Component
 ```
-PostgreSQL database \(can be clustered databases\)
-    direct SQL queries
-    ORM modules
-OpenERP server \(could be multiple and load balanced \)
-    enterprise logic
+PostgreSQL database \(can be clustered databases\)  
+    direct SQL queries  
+    ORM modules  
+OpenERP server \(could be multiple and load balanced \)  
+    enterprise logic  
 Client
     Javascript web browser application
         jsonRPC
     OS client
         XML-RPC (session-less)
-
 ```
 ## MVC
 ```
 Model
     the postgresql tables
 View
-    defined in XML files 
+    defined by XML files 
 Controller
     the objects of OpenERP
 ```
 
 
 ## Topic
-1. everything in OpenERP, and objects method in particular, are exposed via the network and a security layer, access to the data model is in fact a
-'service' and it is possible to expose new services
+everything in OpenERP, and objects method in particular, are exposed via the network and a security layer, access to the data model is in fact a
+'service' and it is possible to expose new services  
 
 services can make use of the WSGI stack, WSGI is a standard solution in  
 the Python ecosystem to write HTTP servers, applications and middleware  
@@ -99,13 +98,8 @@ which can be used in a mix-and-match fashion, by using WSGI it is possible  to r
 
 
 
-
-
 ## XML serialization
-
-openerp
-    data
-        
+```
 
 record tag
     attribute
@@ -125,27 +119,24 @@ function tag \(self closed \)
         model
         name
         eval
-
+```
 
 ## Views
-views are way to represent the objects on the client side, they indicate to the client how to layout the data coming
-from the objects on the screen
-views are describe in xml
+views are way to represent the objects on the client side, they indicate to the client how to layout the data coming from the objects on the screen views are describe in xml
 
-if no view has been defined for an object, the object is able to generate a view to represent itself
+if no view has been defined for an object, the object is able to generate a view to represent itself  
 
+```
 Types
     form view
     tree view
         list view: just a particular case of tree view
+    gantt view
+    graph view
+    search view
 
+```
 
-
-
-## MVC workflow
-an action asks to open the invoice
-the client asks to the server what views are defined for the invoice object and what are the data it must show
-the client display the form according to the view
 
 ## Report
 ## Workflow
@@ -157,8 +148,6 @@ example:
     a paid invoice must, only under certain conditions, start the shippping order
 
 
-
-```
 ## Objects
 1. all the OE pieces of data are accessible through "objects", as an example, there is a res.partner object to access  
 the data concerning the partners, an account.invoice object for the data concerning the invoices, etc...
@@ -168,10 +157,9 @@ the data concerning the partners, an account.invoice object for the data concern
 5. an OE "Resource" can be converted magically into a nice Python object using the "browse" class method
 
 
-## ORM
-data model is described and manipulated through Python classes and objects
 
 ## Object Attributes
+data model is described and manipulated through Python classes and objects
 ### Object definition
 ```
 class name_of_the_object(osv.osv):
@@ -220,7 +208,7 @@ Relational Types if fields
     related: refer to the relation of a relation
 
 Functional Fields
-    ```
+
     'function' : fields.function(
                 _get_cur_function_id,
                 type='many2one', 
@@ -228,14 +216,13 @@ Functional Fields
                 method=True,
                 string='Contract Function'),
         } 
-    ```
+
 Property Field
-    
     
 store Parameter
     It will calculate the field and store the result in the table
 
-
+```
 ## Views and Events
 1. every resource type uses its own interface
 2. OE user interface is dynamically built from XML descriptions of the client screens
@@ -247,6 +234,7 @@ store Parameter
 6. form views can also contain graphs
 
 ### Form views
+```
 the field disposition in a form view always follows the same principle, Fields are distributed on the screen 
 following the rules below:
     1. by dafault, each field is preceded by a label with its name
@@ -261,20 +249,22 @@ view also support more advanced placement options
     1. a view field can use several columns
     2. we can also make the opposite operation: take a columns group and divide it in as many columns as desired
         the surrouned green zones of the screen above are good example
-
+```
 
 ### On Change
+```
 the on_change attribute defines a method that is called when the content of a view field has changed, this method  
 takes at least arguments: cr, uid, ids, which are the three classical arguments and also the context dictionary  
 you can ad parameter to the method, they must correspond to other fields defined in the view and must also be 
 defined in the XML with fields defined this way 
-```
+
 <field name="name_of_field" on_change="name_of_method()"/>
-``` 
+
 you can use "context" keyword to access data in the contet that can be used as params of the functions
 
 it is possible no only to  change more than just the values of fields, but also the value of some fields and the 
 domain of other fields by returning a value of the form "return{'domain': d , 'value': value}"
+```
 
 ## Tree View
 tree view are used when we work in list mode \(in order to visualize several resources at once\) and in the search 
@@ -295,18 +285,22 @@ a graph is a new mode of view for all views of type form
 
 
 ## Controlling view actions
-when defining a view, the following attributes can be added on the opening element of the view
+when defining a view, the following attributes can be added on the opening element of the view  
+
+```
 create
     set to false to hide the link/button which allows to create a new record
 delete
     set to false to hide the link/button which allows to remove a record
 edit
     set to false to hide the link/button which allows to edit a record
-
+```
+  
 these attributes are available on form, tree, kanban and gantt views
 
 
 ## Calender Views
+```
 calender view provides timeline/schedule view for the data
 
 calender tag
@@ -318,7 +312,9 @@ calender tag
         day_length
         color
         mode
+```
 ## Gantt view
+```
 provides timelien view for the data, Generally it can be used to display project tasks and resource allocation
 
 gantt tag
@@ -336,10 +332,11 @@ level tag
     link
     domain
 
-
+```
 ## Drag and Drop
 
 ## Button
+```
 button tag
     attribute
         @type
@@ -354,7 +351,7 @@ button tag
         @icon
         @states, @attrs, @invisible
         @default_focus
-
+```
 ## Label
 add a simple label using the string attribute as caption
 
@@ -367,6 +364,7 @@ when you create and inherit objects in some custom or specific modules, it is be
 to add/modify/delete some fields and preserve the others
 
 ## Menus 
+```
 menus are records in the "ir.ui.menu" table, In order to create a new menu entry, you can directly create a record using  
 the "record" tag
 
@@ -379,8 +377,9 @@ menuitem tag
         groups: specifies which group of user can see the menu item
         sequence: used to sort the menu item in the menu, the higher the sequence number, the downer the menu item
         parent
-
+```
 ## Actions
+```
 the actions define the behavior of the system in response to the actions of the users; login, double click, click
 
 simple action
@@ -389,10 +388,10 @@ simple action
     execute
     group
 
-
-    
+``` 
 
 ## Security 
+```
 
 user: a person identified by its login and password, Note that all employees of a company are not necessarily OpenERP
 users, an user is somebody who access the application
@@ -404,12 +403,13 @@ given resource
 security rules are attached to groups, Users are assigned to several groups, this gives users the rights that are attached to  
 their groups, therefore controlling user roles is done by managing user groups and adding or modifying security rules attached to those groups
 
-
+```
 
 ### Security rule
+```
 types
     access rights are global rights on an object
     record rules are records access filter
     fields access right
     workflow transition rules are operations rights
-
+```
