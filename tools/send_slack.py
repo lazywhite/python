@@ -4,6 +4,15 @@ from __future__ import print_function
 import requests
 import sys
 import json
+'''
+# get the webapi url
+    login Slack.com
+    Browse Apps
+        Custom Integration
+            Incoming WebHooks
+                https://nexttaodev.slack.com/services/B2KELQPPU
+# post a json formatted payload
+'''
 
 url = "https://hooks.slack.com/services/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"
 

@@ -1,3 +1,9 @@
+## Introduction
+qweb is the template engine used by the openerp web client, It is an xml-based templating language  
+1. it's implemented fully in javascript and rendered in the browser
+2. each template file\(xml files\) contains multiple templates 
+3. it has special support in openerp web's widget
+
 ## Template directives
 ### Output
 ```
