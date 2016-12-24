@@ -1,18 +1,18 @@
-from bottle import  Bottle, view, template, request, response, redirect
-import bottle_mysql as bm
+from peewee import Model, CharField, IntegerField
+from bottle import Bottle, request, response, template, redirect
 import bottle_session
 import bottle_redis
+import bottle_peewee
 import redis
+#from bottle_config import config
 
-#import pdb
+#TODO: load config from config file
 
 app = Bottle()
 
-#pdb.set_trace()
+#app.install(config)
 #app.config.load_config('config.ini')
-#plugin = bm.Plugin(dbhost=app.config['mysql']['dbhost'], dbuser='root', dbpass='root', dbname='test')
-sqlplugin = bm.Plugin(dbuser='root', dbpass='root', dbname='test')
-app.install(sqlplugin)
+#print app.config
 
 session_plugin = bottle_session.SessionPlugin(cookie_lifetime=600)
 
@@ -21,19 +21,21 @@ conn_pool = redis.ConnectionPool(host='localhost', port=6379)
 
 session_plugin.connection_pool = conn_pool
 redis_plugin.redisdb = conn_pool
+
+peewee_plugin = bottle_peewee.PeeweePlugin("mysql://root:root@localhost:3306/test")
+
 app.install(session_plugin)
 app.install(redis_plugin)
-
+app.install(peewee_plugin)
 
 @app.route('/login', method='POST')
-def login(db, session):
+def login(session):
     postbody = request.body.read()
     print postbody
     username = request.forms.get("username")
     password = request.forms.get("password")
-    db.execute("select password from user where name=%s", (username,))
-    row = db.fetchone()
-    if row and (password == row.get("password")):
+    user = User.get(User.name==username)
+    if user and (user.password == password):
         session['username'] = username
         redirect('/login')
     else:
@@ -50,15 +52,23 @@ def login(session):
 @app.route('/logout', method='GET')
 def logout(session):
     del(session['username'])
-#    return 'logout'
     redirect("/login")
 
 
 @app.route('/user')
-def user(db, session):
+def user(session):
     username = session.get('username')
     if not username:
         redirect("/login")
     else:
         return template('user', name=username)
 
+
+class User(Model):
+    class Meta(object):
+        pass
+        database = peewee_plugin.proxy
+    
+    id = IntegerField()
+    name = CharField()
+    password = CharField()
