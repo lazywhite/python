@@ -37,6 +37,7 @@ def login(session):
     user = User.get(User.name==username)
     if user and (user.password == password):
         session['username'] = username
+        response.set_cookie("key", "value")
         redirect('/login')
     else:
         return "password not correct"
