@@ -6,3 +6,6 @@ __pycache__
 *.pid
 *.csv
 **/.DS_Store
+zabbix_to_word/doc/*.docx
+zabbix_to_word/**/*.png
+office/*.docx
