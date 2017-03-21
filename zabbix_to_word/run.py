@@ -1,3 +1,6 @@
+'''
+    get graph from config.yml
+'''
 from __future__ import print_function
 import sys
 reload(sys)

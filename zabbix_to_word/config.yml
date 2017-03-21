@@ -1,6 +1,6 @@
 zabbix_server: "10.1.94.40/zabbix"
 zabbix_user: "Admin"
-zabbix_pw: ""
+zabbix_pw: "asdf,jkl;"
 start_time: 20160220000000
 period: 7776000
 graph_dir: './graph/'
