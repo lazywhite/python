@@ -47,8 +47,8 @@ if __name__ == '__main__':
 
     doc = Document(template)
     for p in doc.paragraphs:
-        if p.text.startswith('zabbix_graph'):
-            m=re.match('^zabbix_graph\|([^|]*)\|([^|]*)$', p.text)
+        if p.text.strip().startswith('zabbix_graph'):
+            m=re.match('^zabbix_graph\|([^|]*)\|([^|]*)$', p.text.lstrip())
             val1, val2 = m.groups()
             hostname = val1.strip()
             graph = val2.strip()
