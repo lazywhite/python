@@ -15,6 +15,8 @@ and they lived at the bottom of a well.</p>
 """
 soup = bs(html_doc)
 p = soup.find_all('p')[0]
+
+story_p = soup.findAll('p', {"class":"story"}) # find by attr
 ### soup.find('div', attrs={'class':'hive'})
 #print(p.name)
 #print(p.attrs['class'])
