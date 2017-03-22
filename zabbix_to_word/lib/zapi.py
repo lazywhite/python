@@ -10,7 +10,7 @@ class ZAPI(object):
     def get_host_id_by_name(self, hostName):
         host = self.zapi.host.get(output='extend', filter={'name':hostName})
         if len(host) != 1:
-            print 'Found more than 1 host by host name'
+            print 'Found more than 1 host by host name, exiting'
             sys.exit(10)
         else:
             return host[0]['hostid']
@@ -19,7 +19,7 @@ class ZAPI(object):
         graph = self.zapi.graph.get(output='extend', hostids=hostid,
                                     filter={'name':graphName})
         if len(graph) != 1:
-            print 'Found more than 1 graph by graph name'
+            print 'Found more than 1 graph by graph name, exiting'
             sys.exit(10)
         else:
             return graph[0]['graphid']

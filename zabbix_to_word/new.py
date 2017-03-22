@@ -1,12 +1,17 @@
 '''
     get config by self-defined tags in docx
+
+    tag format
+        zabbix_graph|hostname|graphname
+
+    only support docx, not doc
 '''
 from __future__ import print_function
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from docx import Document
-from docx.shared import Inches, Pt
+from docx.shared import Inches, Pt, Cm
 from lib.graph import Graph
 from lib.zapi import ZAPI
 from lib.config import get_config
@@ -15,7 +20,7 @@ import re
 from pprint import pprint
 from datetime import datetime
 
-#import pdb
+import pdb
 
 def delete_paragraph(paragraph):
     p = paragraph._element
@@ -45,21 +50,24 @@ if __name__ == '__main__':
     zp = ZAPI(server, username, password)
     gph = Graph(server, username, password)
 
+#    doc = Document(unicode(template))
     doc = Document(template)
+#    pdb.set_trace()
     for p in doc.paragraphs:
+        print(p.text)
         if p.text.strip().startswith('zabbix_graph'):
-            m=re.match('^zabbix_graph\|([^|]*)\|([^|]*)$', p.text.lstrip())
+            m=re.match('^zabbix_graph\|([^|]*)\|([^|]*)$', p.text.strip())
             val1, val2 = m.groups()
             hostname = val1.strip()
             graph = val2.strip()
             host_id = zp.get_host_id_by_name(hostname)
             graph_id = zp.get_graph_id(host_id, graph)
-            graph_name = graph_path + '_'.join([hostname, graph, now, '.png'])
+            graph_name = graph_path + '_'.join([hostname, graph_id, now, '.png'])
             gph.get_graph(graph_id,period, stime, graph_name)
 
             new = p.insert_paragraph_before()
             r = new.add_run()
-            r.add_picture(graph_name, width=Inches(5.5))
+            r.add_picture(graph_name, width=Cm(17))
             delete_paragraph(p)
 
                                 

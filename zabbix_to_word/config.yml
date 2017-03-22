@@ -1,11 +1,11 @@
 zabbix_server: "10.1.94.40/zabbix"
 zabbix_user: "Admin"
-zabbix_pw: "asdf,jkl;"
-start_time: 20160220000000
-period: 7776000
+zabbix_pw: ""
+start_time: 20170301000000
+period: 2592000
 graph_dir: './graph/'
 template_dir: './template/'
-template_name: 'ouyeel.docx'
+template_name: ''
 output_dir: './doc/'
 graphs:
   - OA:
