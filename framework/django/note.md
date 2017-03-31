@@ -7,12 +7,6 @@ Using the template system in Python is a three-step process:
 3. You render the template with a Context.
 ```
 ## 二、Model
-### 2.1 model relationship
-```
-many_to_many
-many_to_one
-one_to_one
-```
 ### 2.2 Model Meta
 ```
 class Meta:
@@ -141,9 +135,10 @@ but take care of a few things for you
 ```
 a.mtm.all()
 ```
-### 10. template filter
+### 10. template filter and tag
 ```
-|length
+filter: {{ var|length }}
+tag: {% if %}  
 ```
 ### 11. django-apps
 [django-bootstrap3](https://github.com/dyve/django-bootstrap3)
@@ -241,6 +236,116 @@ Query Related tools
     Q()
     Prefetch()
     prefetch_related_objects()
+
+
+result = table.objects.filter(string__contains='pattern')  # like 
+result = table.objects.filter(name='pattern')  # '=' 
+```
+
+### 14. cookie and session
+```
+response.set_cookie('username', "bob")
+request.COOKIE.get('username')
+
+request.session['username'] = 'bob'
+
+```
+#### 14.1 Redis Session
+```
+pip install django-redis-sessions
+
+mysite/setting.py
+    SESSION_ENGINE = 'redis_sessions.session'
+    SESSION_REDIS_HOST = 'localhost'
+    SESSION_REDIS_PORT = 6379
+    SESSION_REDIS_DB = 0
+    SESSION_REDIS_PASSWORD = ''
+    SESSION_REDIS_PREFIX = 'session'
+    SESSION_REDIS_SOCKET_TIMEOUT = 1
+
+```
+### 15. change user password
+```
+from django.contrib.auth.models import User
+usr = User.objects.get(username='your username')
+usr.set_password('raw password')
+usr.save()
+```
+
+### 16. customized template filter
+```
+after adding templatetags, need to restart server
+```
+### 17. django field 
+#### 17.1 Field Type
+```
+AutoField
+BigAutoField
+BigIntegerField
+BinaryField
+BooleanField
+CharField
+CommanSeperatedField
+DateField
+DatetimeField
+DecimalField
+DurationField
+EmailField
+FileField
+FilePathField
+FloatField
+ImageField
+IntegerField
+GenericIPAddressField
+PositiveIntegerField
+PositiveSmallIntegerField
+SlugField
+SmallIntegerField
+TextField
+TimeField
+URLField
+UUIDField
+```
+#### 17.2 Field Option
+```
+null
+blank
+choices
+db_column # name of database column
+db_index # whether create database index for this column
+default # could be a callable object
+editable # used for admin site
+error_message # override the default message when error occured
+help_text # used for form widget
+primary_key
+unique
+unique_for_date
+unique_for_year
+unique_for_month
+verbose_name 
+validators # a list of validators run for this field
+```
+#### 17.3 Relationship fields
+```
+ForeignKey (many to one)
+    on_delete
+    limit_choices_to
+    related_name
+    related_query_name
+    to_field
+    db_constraint
+    swappable
+
+ManyToManyField
+OneToOneField
+```
+### 18. display sql query
+```
+from django.db import connection
+print connection.queries
+
+all = MyModel.objects.filter(name="my name")
+print all.query
 ```
 
 ## 六、 Tips
@@ -252,3 +357,4 @@ If you need to create a relationship on a model that has not yet been defined, y
 
 To create a recursive relationship – an object that has a many-to-one relationship with itself – use models.ForeignKey('self', on_delete=models.CASCADE).
 ```
+
