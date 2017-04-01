@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-05 18:17+0800\n"
+"POT-Creation-Date: 2017-03-29 12:14+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/polls/test.html:2
-msgid "title"
-msgstr "标题"
-
-#: templates/polls/test.html:3
-msgid "another_title"
-msgstr "又一个标题"
+#: local/templates/local/index.html:2
+msgid "Welcome"
+msgstr "欢迎"

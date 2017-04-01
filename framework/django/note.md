@@ -347,6 +347,18 @@ print connection.queries
 all = MyModel.objects.filter(name="my name")
 print all.query
 ```
+### 19. django-bootstrap3
+```
+pip install django-bootstrap3
+
+INSTALLED_APPS
+    bootstrap3
+
+```
+### 19. Response 
+```
+return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+```
 
 ## 六、 Tips
 ```
