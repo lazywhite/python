@@ -357,7 +357,14 @@ INSTALLED_APPS
 ```
 ### 19. Response 
 ```
+render(request, 'template', context=locals())
+render_to_response will be depracated
 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+```
+### 20 Template Comment
+```
+{% comment %} {% endcomment %}
+{# oneline comment $}
 ```
 
 ## 六、 Tips
