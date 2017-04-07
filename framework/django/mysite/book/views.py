@@ -10,6 +10,7 @@ from django.utils.translation import activate, ugettext as _
 from django.template import Context, RequestContext
 
 from django.contrib import messages
+from django.core import serializers
 
 import pdb
 # Create your views here.
@@ -74,3 +75,6 @@ def add_author(request):
             messages.warning(request, 'Author exists')  
             return render(request, "book/add_author.html", locals())
 
+def all_book(request):
+    data = serializers.serialize("json", Book.objects.all(), fields=('name',))
+    return HttpResponse(data)
