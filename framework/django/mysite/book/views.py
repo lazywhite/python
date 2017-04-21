@@ -75,6 +75,16 @@ def add_author(request):
             messages.warning(request, 'Author exists')  
             return render(request, "book/add_author.html", locals())
 
+def list_author(request):
+    if request.method == 'GET':
+        objs = Author.objects.all()
+        print len(objs)
+        for i in objs:
+            for x in i.book_set.all():
+                print x.name
+                
+        return HttpResponse('good')
+
 def all_book(request):
     data = serializers.serialize("json", Book.objects.all(), fields=('name',))
     return HttpResponse(data)

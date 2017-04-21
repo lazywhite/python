@@ -355,7 +355,15 @@ INSTALLED_APPS
     bootstrap3
 
 ```
-### 19. Response 
+### 19. Request and Response 
+```
+path variable
+/user/{ID}/ : url(r'user/(?P<ID>\d+)/$', views.detail, name="userDetail")
+    request param
+/user?name='bob'&age=10
+    request.GET.get('name')
+```
+
 ```
 render(request, 'template', context=locals())
 render_to_response will be depracated
@@ -366,6 +374,14 @@ return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 {% comment %} {% endcomment %}
 {# oneline comment $}
 ```
+### 21 Logging
+```
+formatter
+logger
+handler
+filter
+```        
+
 
 ## 六、 Tips
 ```
