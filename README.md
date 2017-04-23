@@ -8,12 +8,14 @@ This repo is a collection of Python2/3 practice code, mostly come from
 ## Repo Structure
   
 ```
+.
 ├── README.md
 ├── algorithm
 │   ├── btree.py
 │   ├── prime.py
 │   ├── single_disptch.py
 │   └── weight.py
+├── aop
 ├── arg_clinic
 │   ├── doc_opt.py
 │   └── ls.py
@@ -54,6 +56,8 @@ This repo is a collection of Python2/3 practice code, mostly come from
 ├── curses
 │   ├── newpad.py
 │   └── wrap.py
+├── daemon
+│   └── demo.py
 ├── datatype
 │   ├── dict_with_default_value.py
 │   ├── subdict.py
@@ -73,11 +77,11 @@ This repo is a collection of Python2/3 practice code, mostly come from
 ├── extending
 │   └── spam.c
 ├── framework
+│   ├── OpenERP
+│   ├── bottle
 │   ├── django
 │   ├── flask
-│   ├── mysite
-│   ├── pyramid
-│   └── tornado
+│   └── pyramid
 ├── func
 │   ├── functools_t.py
 │   ├── itertools_t.py
@@ -108,8 +112,11 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   └── ss.py
 ├── metaclass
 │   └── metaclass.py
+├── note.md
 ├── oauth
 │   └── example.py
+├── office
+│   └── doc.py
 ├── oreilly
 │   ├── annotation.py
 │   ├── argparse_t.py
@@ -159,11 +166,11 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   ├── web.py
 │   └── wraps.py
 ├── orm
-│   ├── __pycache__
 │   └── official.py
 ├── other
 │   ├── beautifulsoup_t.py
 │   ├── bianchenzhimei.py
+│   ├── install_m2crypto.md
 │   ├── jianzhioffer.py
 │   ├── libvirt_t.py
 │   ├── ms100.py
@@ -229,7 +236,6 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   ├── parse_access.py
 │   └── re_test.py
 ├── restfull
-│   ├── __pycache__
 │   ├── rest_t.py
 │   ├── restless.py
 │   └── resty.py
@@ -264,6 +270,9 @@ This repo is a collection of Python2/3 practice code, mostly come from
 ├── special_method
 │   ├── del.py
 │   └── prepare.py
+├── sphinx
+│   ├── note.md
+│   └── sphinx_test
 ├── standard_module
 │   ├── bisect_t.py
 │   ├── codecs_t.py
@@ -276,29 +285,43 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   ├── python3_super.py
 │   └── super_mro.py
 ├── system
+│   ├── os.txt
 │   └── psutil_t.py
 ├── testTool
 │   ├── doc_test.py
 │   └── unit_test.py
 ├── tools
+│   ├── cos_demo.py
 │   ├── mock.md
+│   ├── oss.md
+│   ├── pg_bouncer.md
 │   ├── pip.md
 │   ├── pyenv.md
+│   ├── pymssql.md
+│   ├── send_slack.py
 │   ├── sms.py
 │   ├── smtp-t.py
 │   ├── uwsgi.md
-│   └── virtualwrapper.md
+│   ├── virtualwrapper.md
+│   └── wheel.md
 ├── with
 │   ├── context_manager.py
 │   └── protocol.py
 ├── yaml
 │   ├── a.py
 │   └── et.yml
-└── yield
-    ├── __pycache__
-    ├── fib.py
-    ├── gene_concurrent.py
-    ├── yield.py
-    └── yield_from.py
-
+├── yield
+│   ├── fib.py
+│   ├── gene_concurrent.py
+│   ├── yield.py
+│   └── yield_from.py
+└── zabbix_to_word
+    ├── config.yml
+    ├── doc
+    ├── graph
+    ├── lib
+    ├── new.py
+    ├── requirements.txt
+    ├── run.py
+    └── template
 ```
