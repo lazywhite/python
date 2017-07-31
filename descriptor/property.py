@@ -17,25 +17,23 @@ class MyClass(object):
     my_thing = property(_i_get, _i_set, _i_delete, 'property description')
 
 
-class C(object):
-    def __init__(self,name,age):
-        self.name = name
-        self._x = age
+
+class B(object):
+    def __init__(self, first_name):
+        self.first_name = first_name
 
     @property
-    def x(self): 
-        print 'x getter'
-        return self._x
+    def first_name(self):
+        return self._first_name
 
-    @x.setter
-    def x(self, value): 
-        print 'x setter'
-        self._x = value
+    @first_name.setter
+    def first_name(self, value):
+        self._first_name = value
 
-    @x.deleter
-    def x(self):
-        print 'x deleter'
-        del self._x
+    @first_name.deleter
+    def first_name(self):
+        self._first_name = None
+
 
 a = MyClass()
 print a.my_thing
@@ -43,8 +41,5 @@ a.my_thing = 10
 print a.my_thing
 del(a.my_thing)
 
-c=C('mary',20)
-print(c.x)
-c.x = 100
-print(c.x)
-del(c.x)
+b = B('bob')
+print b.first_name	

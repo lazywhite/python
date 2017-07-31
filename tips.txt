@@ -1,0 +1,92 @@
+新式类与老式类
+    class A:
+        pass
+
+    class B(object):
+        pass
+
+    a = A()
+    b = B()
+    type(a) --> instance 
+    type(b) --> __main__.B
+
+    type(A) --> classobj
+    type(B) --> type
+
+
+    mro: 老式类深度优先， 新式类广度优先
+
+列表删除元素
+    type(a) --> list
+    a.remove(<element>)
+    a.pop([index])
+
+bool([0, None, [], {}, ()]) --> False
+
+
+
+isinstance(10, int) -->True
+issubclass(A, object) -->bool
+
+python不支持函数重载 不支持泛型, 因为函数对参数类型和个数均不敏感
+python singledispatch
+
+
+try语句块如果没有异常发生, 则执行else语句, finally一定会被执行
+
+@classmethod 第一个参数一定是cls, @staticmethod像普通方法一样定义即可
+
+
+python 数据类型
+    int
+    long
+    float
+    bool
+    complex
+    str
+    function
+    type
+    list
+    set
+    dict
+    tuple
+
+面向对象
+    继承关系
+        obj.__base__ 查看其父类
+        type.__base__ --> object
+        object是继承关系的顶点, 所有数据类型的父类都是object
+    类型实例关系
+        obj.__class__ 查看其类型
+        object.__class__ --> type
+        type是实例关系的顶点, 所有对象都是它的实例
+
+
+
+float('nan')
+float('inf')
+float('-inf')
+
+d = {'k1':200, 'k2': 100}
+max(d) --> 'k2'
+max(d, key=lambda key: d[key]) --> 按value排序
+
+
+class A(object):
+    __private = 10  # 访问时自动被重命名, 被继承后无法被覆盖
+    _protected = 20
+
+class B(A):
+    __private = 100
+    _protected = 200
+	_A__private = 10101  # override方法
+
+    def __func(self):
+        pass
+
+b = B()
+
+b._protected
+b._B__private
+b._A__private
+b._B__func()
