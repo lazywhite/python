@@ -11,3 +11,8 @@ zabbix_to_word/**/*.png
 zabbix_to_word/template/*.docx
 zabbix_to_word/config.yml
 office/*.docx
+**/.idea/**
+**/*.iml
+**/migrations/**
+
+**/*.jpg

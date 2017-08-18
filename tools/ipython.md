@@ -1,8 +1,3 @@
-title: Ipython
-date: 2014-05-01 18:29:05
-tags: python
-categories: [tech]
----
 ## Introduction
 ```
 Ipython is an enhanced interpretor of python, it has three key features
@@ -10,8 +5,6 @@ Ipython is an enhanced interpretor of python, it has three key features
 2. ipython notebook
 3. support for parallel computing
 ```
-<!-- more -->
-
 ## magic function
 ```
 - %history

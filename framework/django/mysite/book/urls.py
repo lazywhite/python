@@ -10,4 +10,5 @@ urlpatterns = [
         url(r'^list_book/$', views.list_book, name="list_book"),
         url(r'^list_author/$', views.list_author, name="list_author"),
         url(r'^all_book/$', views.all_book, name="all_book"),
+        url(r'^download$', views.download, name="download"),
         ]

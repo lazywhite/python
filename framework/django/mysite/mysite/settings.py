@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for mysite project.
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
     'bootstrap3',
     'book',
     'guardian',
@@ -53,7 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.transaction.TransactionMiddleware',
+#    'django.middleware.transaction.TransactionMiddleware',
+    'middleware.StackOverflowMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -139,7 +142,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-# setting for Redis Session
+# setting for django-redis-sessions
 SESSION_ENGINE = 'redis_sessions.session'
 SESSION_REDIS_HOST = 'localhost'
 SESSION_REDIS_PORT = 6379
@@ -151,7 +154,7 @@ SESSION_REDIS_SOCKET_TIMEOUT = 1
 
 
 
-## setting for redis cache
+## setting for django-redis-cache
 
 CACHES = {
     'default': {
@@ -161,7 +164,7 @@ CACHES = {
         ],
         'OPTIONS': {
             'DB': 2,
-            'PASSWORD': '',
+            'PASSWORD': None,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
             'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
             'CONNECTION_POOL_CLASS_KWARGS': {
@@ -173,4 +176,48 @@ CACHES = {
         },
     },
 }
+
+# Settings for django.contrib.auth.views 
+LOGIN_URL = "/account/login/"
+LOGIN_REDIRECT_URL = '/account/profile/'
+
+#AUTH_USER_MODEL = 'account.User'  ## 自定义user表
+AUTH_PROFILE_MODULE = 'account.UserProfile' 
+
+## setting for django-extension
+SHELL_PLUS = "ipython"
+
+
+## setting for print django orm  sql
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+    }
+}
+
+
+## setting for ImageField
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+## setting for SMTP
+EMAIL_HOST = 'smtp.126.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'cppking'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = True
+
 

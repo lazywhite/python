@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
 from .forms import UploadFileForm, BookForm, AuthorForm
-from .helper import handle_uploaded_file
+from .helper import handle_uploaded_file, file_iterator, commit_callback
 from .models import Book, Author
 from django.utils.translation import activate, ugettext as _
-from django.template import Context, RequestContext
 
 from django.contrib import messages
 from django.core import serializers
+from django.db import transaction
 
-# Create your views here.
+
 def index(request):
     form = UploadFileForm(request.POST, request.FILES)
     LANGUAGE_CODE = request.LANGUAGE_CODE
@@ -19,7 +20,7 @@ def index(request):
     return render(request, 'book/index.html', locals())
 
 
-
+@login_required
 def list_book(request):
     book_list = Book.objects.all()
     paginator = Paginator(book_list, 10)
@@ -34,8 +35,6 @@ def list_book(request):
     return render(request, 'book/list_book.html', {'books': books})
 
 
-# Imaginary function to handle an uploaded file.
-
 def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -48,6 +47,7 @@ def upload_file(request):
         form = UploadFileForm()
     return render(request, 'book/upload.html', {'form': form})
 
+@transaction.atomic
 def upload_book(request):
     if request.method == 'GET':
         form = BookForm()
@@ -56,8 +56,10 @@ def upload_book(request):
         book_form = BookForm(request.POST)
         if book_form.is_valid():
             book_form.save()
+#            a = 100 / 0  #代码抛出异常, 事务失败
             return HttpResponse("good")
 
+@transaction.atomic
 def add_author(request):
     if request.method == 'GET':
         form = AuthorForm()
@@ -74,15 +76,22 @@ def add_author(request):
             return render(request, "book/add_author.html", locals())
 
 def list_author(request):
+    transaction.set_autocommit(False, using="default")
     if request.method == 'GET':
-        objs = Author.objects.all()
-        print len(objs)
-        for i in objs:
-            for x in i.book_set.all():
-                print x.name
-                
-        return HttpResponse('good')
+        authors = Author.objects.all()
+        return render(request, "book/list_author.html", locals())
 
 def all_book(request):
     data = serializers.serialize("json", Book.objects.all(), fields=('name',))
     return HttpResponse(data)
+
+
+def download(request):
+    transaction.on_commit(commit_callback)  
+    file_name = request.GET.get("filename")
+    filename = "/Users/white/local/" + file_name
+    response = StreamingHttpResponse(file_iterator(filename))
+    response["Content-Type"] = "application/octet-stream"
+    response["Content-Disposition"] = "attachment;filename={0}".format(file_name)
+    return response
+

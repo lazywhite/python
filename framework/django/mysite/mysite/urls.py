@@ -21,6 +21,6 @@ urlpatterns = [
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^book/', include('book.urls')),
-    url('^', include('django.contrib.auth.urls')),
+    url('^account/', include('account.urls')),
 ]
 

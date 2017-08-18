@@ -1,11 +1,11 @@
 ## Introduction
 
-This repo is a collection of Python2/3 practice code, mostly come from   
+Python2/3 practice code which refrence following books    
 1. Oreilly Python 3 Cookbook  
 2. Python standard library by example  
 
 
-## Repo Structure
+## Directory Layout
   
 ```
 .
@@ -15,7 +15,6 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   ├── prime.py
 │   ├── single_disptch.py
 │   └── weight.py
-├── aop
 ├── arg_clinic
 │   ├── doc_opt.py
 │   └── ls.py
@@ -37,8 +36,6 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   ├── celery_config.py
 │   ├── config_redis.py
 │   ├── config_redis.pyc
-│   ├── node1.log
-│   ├── node2.log
 │   ├── note.py
 │   ├── redis_t.py
 │   ├── single_task.py
@@ -65,10 +62,7 @@ This repo is a collection of Python2/3 practice code, mostly come from
 ├── datetime
 │   └── note.py
 ├── decorator
-│   ├── deco_with_arg.py
-│   ├── multi_deco.py
-│   ├── note
-│   └── tag.py
+│   └── deco.py
 ├── descriptor
 │   ├── descriptor.py
 │   └── property.py
@@ -162,10 +156,10 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   ├── string_t.py
 │   ├── subprocess_t.py
 │   ├── unpack_item.py
-│   ├── weakref_t.py
 │   ├── web.py
 │   └── wraps.py
 ├── orm
+│   ├── __pycache__
 │   └── official.py
 ├── other
 │   ├── beautifulsoup_t.py
@@ -182,8 +176,7 @@ This repo is a collection of Python2/3 practice code, mostly come from
 ├── project
 │   ├── card
 │   ├── plague
-│   ├── pvp
-│   └── websocket_app
+│   └── pvp
 ├── protobuf
 │   ├── addressbook.proto
 │   ├── note.md
@@ -228,14 +221,15 @@ This repo is a collection of Python2/3 practice code, mostly come from
 ├── rabbit
 │   ├── new_task.py
 │   ├── new_worker.py
-│   ├── rabbit_rpcclient.py
-│   ├── rabbit_rpcserver.py
 │   ├── receive.py
+│   ├── rpcclient.py
+│   ├── rpcserver.py
 │   └── send.py
 ├── re
 │   ├── parse_access.py
 │   └── re_test.py
 ├── restfull
+│   ├── __pycache__
 │   ├── rest_t.py
 │   ├── restless.py
 │   └── resty.py
@@ -268,7 +262,7 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   ├── xmlrpc_client.py
 │   └── xmlrpc_server.py
 ├── special_method
-│   ├── del.py
+│   ├── demo.py
 │   └── prepare.py
 ├── sphinx
 │   ├── note.md
@@ -281,17 +275,19 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   ├── selectors_t.py
 │   └── tracemalloc_t.py
 ├── super
-│   ├── mro.py
-│   ├── python3_super.py
-│   └── super_mro.py
+│   ├── _super.py
+│   ├── _super.py3
+│   └── mro.py
 ├── system
 │   ├── os.txt
 │   └── psutil_t.py
 ├── testTool
 │   ├── doc_test.py
 │   └── unit_test.py
+├── tips.txt
 ├── tools
 │   ├── cos_demo.py
+│   ├── ipython.md
 │   ├── mock.md
 │   ├── oss.md
 │   ├── pg_bouncer.md
@@ -304,13 +300,28 @@ This repo is a collection of Python2/3 practice code, mostly come from
 │   ├── uwsgi.md
 │   ├── virtualwrapper.md
 │   └── wheel.md
+├── weakref
+│   └── weakref_t.py
+├── websocket
+│   ├── Procfile
+│   ├── __init__.py
+│   ├── myapp.py
+│   └── wsgi.py
 ├── with
 │   ├── context_manager.py
 │   └── protocol.py
+├── wxpython
+│   ├── button.py
+│   ├── dd.py
+│   ├── draw.py
+│   ├── event.py
+│   ├── hello.py
+│   └── note.md
 ├── yaml
 │   ├── a.py
 │   └── et.yml
 ├── yield
+│   ├── __pycache__
 │   ├── fib.py
 │   ├── gene_concurrent.py
 │   ├── yield.py
@@ -325,3 +336,4 @@ This repo is a collection of Python2/3 practice code, mostly come from
     ├── run.py
     └── template
 ```
+

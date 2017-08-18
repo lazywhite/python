@@ -90,3 +90,26 @@ b._protected
 b._B__private
 b._A__private
 b._B__func()
+
+## GIL
+一个防止多线程并发执行机器码的一个Mutex, 造成在计算密集型的多线程程序中性能甚至低于单线程
+因为有了GIL, 默认python内部对象是thread-safe的，无需在实现时考虑额外的内存锁和同步操作
+
+
+
+
+## install pycrypto-2.6.1 on Mac 10.12
+    configure: error: C preprocessor "clang++" fails sanity check
+    方法： **sudo** pip install pycrypto
+
+## django template unicode decode error
+    manage.py
+        reload(sys)
+        sys.setdefaultencoding('utf8')
+
+    path/to/template.html
+        <head>
+            <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        </head>
+    views.py
+        # -*- coding: utf-8 -*-
