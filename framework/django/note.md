@@ -421,7 +421,7 @@ DateField: 对应datetime.date, 以下属性只能三选一, 不能同时使用
     auto_now = False # 每当object被save()时, 自动设置为当前时间
     auto_now_add = False # 记录object被创建的时间
     default 默认值 
-DatetimeField: 对应datetime.datetime
+DateTimeField: 对应datetime.datetime
 DecimalField: 对应Decimal
     max_digits = 5
     decimal_places = 2
@@ -668,5 +668,27 @@ redirect("account:profile", permanent=True)
 redirect("/user/login/", permanent=True)
 
 DATABASE_ROUTER
+
+
+## 逆向生成models.py
+1. 在setting里面设置你要连接的数据库类型和连接名称，地址之类
+2. django-admin.py startapp app
+3. python manage.py inspectdb > app/models.py
+
+
+无主键的model无法进行迭代
+ALLOWED_HOSTS = [ * ]
+
+返回301, 可能url路径少了'/'
+
+
+python manage.py makemigration asset 
+python manage.py migrate asset --database zabbix
+
+
+./manage.py  makemigration <app> #不能添加--database
+./manage.py  migrate <app> <0001> --fake --database=xx #跳过某些migration
+
 ```
+
 

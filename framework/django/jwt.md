@@ -1,14 +1,46 @@
+## Usage
+```
+pip install djangorestframework
+pip install djangorestframework-jwt
+
+http://getblimp.github.io/django-rest-framework-jwt/
+
+
+开启view jwt认证
+    from rest_framework.decorators import api_view, permission_classes
+    from rest_framework.permissions import IsAuthenticated
+
+    @api_view(['GET'])
+    @permission_classes((IsAuthenticated, ))
+    def view(request):
+        pass
+
+```
+
+
+
 ## Get Token
 ```
 curl -X POST -d "username=admin&password=adminP@ssword" http://localhost:8000/api-token-auth/
-{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6MSwiZW1haWwiOiJhZG1pbkBsb2NhbC5jb20iLCJleHAiOjE0NjI5NTQyMjF9.ja2d1hUBabumZqelLyilD2Q5M_CRyVGEkfdo5GEMicg"}
+
+
+$ curl -X POST -H "Content-Type: application/json" -d '{"username":"admin","password":"password123"}' http://localhost:8000/api-token-auth/
+
+{"token":"<token>"}
 ```
+
+## Use Token
+  
+```
+curl -H "Authorization: JWT <your_token>" http://localhost:8000/protected-url/
+```
+
 ## Refresh Token
 ```
-curl -X POST -H "Content-Type: application/json" -d '{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwib3JpZ19pYXQiOjE0NjI5NTM1MTQsInVzZXJfaWQiOjEsImVtYWlsIjoiYWRtaW5AbG9jYWwuY29tIiwiZXhwIjoxNDYyOTUzNjAwfQ.DAYBahC714L6DDJ3iEvpWOk9AEtZjExYG57qxZXDQFk"}' http://localhost:8000/api-token-refresh/
+curl -X POST -H "Content-Type: application/json" -d '{"token":"<token>"}' http://localhost:8000/api-token-refresh/
 ```
 
 ## Verify Token
 ```
-curl -X POST -H "Content-Type: application/json" -d '{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwib3JpZ19pYXQiOjE0NjI5NTM1MTQsInVzZXJfaWQiOjEsImVtYWlsIjoiYWRtaW5AbG9jYWwuY29tIiwiZXhwIjoxNDYyOTUzNjAwfQ.DAYBahC714L6DDJ3iEvpWOk9AEtZjExYG57qxZXDQFk"}' http://localhost:8000/api-token-verify/
+curl -X POST -H "Content-Type: application/json" -d '{"token":"<token>"}' http://localhost:8000/api-token-verify/
 ```
