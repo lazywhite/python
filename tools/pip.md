@@ -1,3 +1,6 @@
+# upgrade pip
+pip install -U pip
+
 # output installed packages in requirements format
 pip freeze > requirements.txt 
 
