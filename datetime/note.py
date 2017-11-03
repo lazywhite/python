@@ -13,3 +13,17 @@ dt = datetime(2017, 03, 21)
 print time.mktime(dt.timetuple())
 
 
+## get datetime from timestamp
+datetime.fromtimestamp(1506311238)
+
+
+
+a =  timedelta(hours=8)
+## timedelta(days=8)
+## timedelta(minutes=8)
+## timedelta(seconds=8)
+## timedelta(8) # 默认为day
+#a = timedelta(days=2, hours=10)
+#b = timedelta(days=2.5, minutes=50)
+
+a.total_seconds()

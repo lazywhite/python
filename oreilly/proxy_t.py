@@ -1,4 +1,4 @@
- delegating attribute access (proxy)
+# delegating attribute access (proxy)
 class A:
     def spam(self, x):
         print(x)

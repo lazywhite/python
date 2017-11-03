@@ -156,6 +156,8 @@ mysite/settings.py
 
     SHELL_PLUS_DONT_LOAD = ['<app_name>', '<app_name>']
 
+
+python manage.py shell_plus --print-sql # 打印执行的sql
 ```
 ### 7. django cache
 ```
@@ -455,6 +457,7 @@ null: 数据库字段值允许为null
 blank: form表单验证中, 允许空值
 choices: 
     class Person(models.Model):
+        # 第一个元素为最终存储在表中的数据, 字段类型要是元素的数据类型
         SHIRT_SIZES = (
             ('S', 'Small'),  #<option value="S">Small</option>
             ('M', 'Medium'),
@@ -462,6 +465,7 @@ choices:
         )
         name = models.CharField(max_length=60)
         shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
+
 
 db_column # 对应表的字段名, 如果不设置, 使用field name
 db_index=<Bool> # 是否在当前字段建立索引
@@ -654,6 +658,83 @@ True
 >>> jack.has_perm('view_book12')
 False
 ```
+
+### 27. test
+```
+from django.test import TestCase
+from django.test import Client
+
+
+c = Client()
+response = c.post('/login/', {'username': 'john', 'password': 'smith'}) 
+
+response.status_code
+response.content
+
+
+python manage.py test [app] --parallel
+python manage.py test [app.test.OneTestCase] --parallel
+
+
+test database
+./manage.py test --keep-db
+```
+### 29. pydoc
+### 30. 跨域
+[djang-corsheaders](https://pypi.python.org/pypi/django-cors-headers/2.0.0)  
+
+### 31. uwsgi部署
+```
+uwsgi不会响应静态文件请求
+
+mysite/setting.py
+    STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+    STATIC_URL = '/static/'
+
+python manage.py collectstatic
+nginx做反向代理
+
+
+在模板中使用静态文件
+    my_app/static/my_app/demo.jpg
+    {% load static %}
+    <img src='{% static "my_app/demo.jpg" %}' alt="My image"/>
+
+
+```
+
+### 31. Signal
+```
+local
+    __init__.py
+        default_app_config = "local.apps.LocalConfig"
+    apps.py
+        class LocalConfig(AppConfig):
+            name = 'local'
+            def ready(self):
+                import local.signals
+    signals.py
+        @receiver(<signal_name>, sender=<Model>)
+
+        signal_name
+            pre_save: before obj.save()
+            post_save: after obj.save()
+            pre_delete: before obj.delete()
+            post_delete: after obj.delete()
+            m2m_changed
+            request_started
+            request_finished
+
+
+自定义signal
+    user_logged_in = Signal(providing_args=['request', 'user'])
+
+```
+### 32 Static file
+```
+https://docs.djangoproject.com/en/1.11/howto/static-files/
+```
+
 ## 六、 Tips
 ```
 python -c "import django; print(django.get_version())"

@@ -1,5 +1,5 @@
 # upgrade pip
-pip install -U pip
+pip install -U pip setuptools
 
 # output installed packages in requirements format
 pip freeze > requirements.txt 

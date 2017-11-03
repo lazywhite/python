@@ -12,13 +12,16 @@ EOF
 
 
 lsvirtualenv
+allvirtualenv
 
 mkvirtualenv test
 workon test
-
 deactive
 
 rmvirtualenv
+
+cpvirtualenv <origin> <new>
+<env> cdvirtualenv  cd ~/.virtualenvs/env
 ```
 
 ## Automaticlly activate venv
@@ -37,3 +40,11 @@ _virtualenv_auto_activate() {
 precmd_functions+=(_virtualenv_auto_activate)
 
 ```
+
+## 将virtualenv打包
+```
+(env)cdvirtualenv
+virtualenv --relocatable .
+env目录可直接拷贝使用
+```
+

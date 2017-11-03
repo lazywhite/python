@@ -1,6 +1,11 @@
 '''
+install
     pip install python-daemon
     python demo.py
+
+daemon debug
+    log = open(file, 'a+)
+    daemon.DaemonContext(stdin=sys.stdin, stdout=log, stderr=log)
 '''
 from __future__ import print_function
 import time

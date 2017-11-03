@@ -20,7 +20,7 @@ def index(request):
     return render(request, 'book/index.html', locals())
 
 
-@login_required
+#@login_required
 def list_book(request):
     book_list = Book.objects.all()
     paginator = Paginator(book_list, 10)

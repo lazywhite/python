@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 # http://www.runoob.com/python/python-reg-expressions.html
 # search: 扫描字符串， 返回第一个成功的匹配

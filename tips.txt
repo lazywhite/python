@@ -113,3 +113,138 @@ b._B__func()
         </head>
     views.py
         # -*- coding: utf-8 -*-
+
+
+string.join(list), list内的元素必须是string
+    ", ".join(str(i) for i in list)
+
+
+wss:// websocket with ssl
+websocket 默认可以跨域, 可以通过Origin header进行控制
+数据支持字符串, array buffer, blob
+
+
+python thread 不支持stop thread的api, 会导致GIL死锁
+process api支持停止
+
+
+a = "0x13"  b = int(a, 16)  
+
+
+函数的参数传递
+    对于可变对象, 相当于传引用
+    对于不可变对象, 相当于传值
+
+
+a = 10
+def f(num):
+    num += 10
+    return num
+b = f(a)
+print a # 10
+print b # 20
+
+
+c = [1, 2]
+def f1(aList):
+    aList[0] += 10
+    return aList
+d = f1(c)
+print c # [11, 2]
+print d # [11, 2]
+
+
+def change():
+    global y 
+    y += 10
+y = 100
+change()
+print y #110
+
+进制转换
+    bin() oct() int() hex()
+
+a = list(range(3))
+print "print list %s" % a
+
+检查文件是否存在
+    os.path.exists("/file/path")
+
+反转list a[::-1]
+
+pip install error
+    pip install -U pip
+
+
+1.from a.b import c 
+    both a.__init__ and b.__init__ will be executed,
+    then <import a >will not execute a.__init__ any more
+
+2.from a import * 
+    will not import name.startswith('_')
+    __all__ can define resource list
+
+3.from __future__ import absolute_import
+     import string ## will try to import 'string' standard library not .string
+
+4. relative import can only use like this <from . import m>
+    it won't work if parts of package are executed as script
+
+5. import importlib; importlib.import_module('name')
+    path = importlib.import_module('os.path')
+
+
+install m2crypto on mac
+    brew install openssl
+    brew install swig
+
+    env LDFLAGS="-L$(brew --prefix openssl)/lib" \
+    CFLAGS="-I$(brew --prefix openssl)/include" \
+    SWIG_FEATURES="-cpperraswarn -includeall -I$(brew --prefix openssl)/include" \
+    pip install m2crypto
+
+
+
+Normally, using a.b to get, set or delete an attribute looks up the object named b in the class dictionary for a, but if b is a descriptor, the respective descriptor method gets called.
+
+
+An object is hashable if it has a hash value which never changes during its lifetime
+
+All of Python’s immutable built-in objects are hashable, while no mutable containers (such as lists or dictionaries) are. Objects which are instances of user-defined classes are hashable by default; they all compare unequal (except with themselves), and their hash value is their id().
+
+iterator : an object representing a stream of data
+
+metaclass: The class of a class. Class definitions create a class name, a class dictionary, and a list of base classes. The metaclass is responsible for taking those three arguments and creating the class. 
+
+MRO: method resolution order 
+module: An object that serves as an organizational unit of Python code. Modules have a namespace containing arbitrary Python objects.
+
+package: Technically, a package is a Python module with an __path__ attribute
+
+reference count
+
+object: type, value, identifier
+
+views: objects returned from dict.keys(), dict.values(), and dict.items() are called dictionary views. They are lazy sequences that will see changes in the underlying dictionary. To force the dictionary view to become a full list use list(dictview).
+
+
+python2.x do not have nonlocal keyword
+
+'return' will break the loop
+
+Packages support one more special attribute, __path__. This is initialized to be a list containing the name of the directory holding the package’s __init__.py before the code in that file is executed. This variable can be modified; doing so affects future searches for modules and subpackages contained in the package.
+
+
+
+an object's type determines the operations that the object support
+an object's mutability is determined by its type
+
+It is not guaranteed that __del__() methods are called for objects that still exist when the interpreter exits.
+
+print(object) execute object.__str__
+repr(object) execute object.__repr__
+
+
+__getattribute__ 
+
+Specifically, any module that contains a __path__ attribute is considered a package.
