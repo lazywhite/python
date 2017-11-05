@@ -8,16 +8,18 @@ Python2/3 practice code which refrence following books
 ## Directory Layout
   
 ```
-.
-├── README.md
 ├── algorithm
+│   ├── bianchenzhimei.py
 │   ├── btree.py
+│   ├── jianzhioffer.py
+│   ├── ms100.py
 │   ├── prime.py
 │   ├── single_disptch.py
 │   └── weight.py
-├── arg_clinic
-│   ├── doc_opt.py
-│   └── ls.py
+├── app
+│   └── zabbix_to_word
+├── argparse
+│   └── main.py
 ├── asyncio
 │   ├── aiohttp_t.py
 │   ├── app-server.py
@@ -32,6 +34,27 @@ Python2/3 practice code which refrence following books
 │   ├── start-server.py
 │   ├── websockets_client.py
 │   └── websockets_t.py
+├── atexit
+│   └── main.py
+├── beautifulsoup
+│   └── main.py
+├── blinker
+│   ├── receiver.py
+│   ├── receiver.pyc
+│   ├── run.py
+│   ├── run.pyc
+│   ├── signalib.py
+│   └── signalib.pyc
+├── builtin
+│   ├── bisect_t.py
+│   ├── filter_t.py
+│   ├── iter_gene.py
+│   ├── operator_t.py
+│   ├── random_t.py
+│   ├── reduce_t.py
+│   ├── slice_t.py
+│   ├── string_t.py
+│   └── subprocess_t.py
 ├── celery
 │   ├── celery_config.py
 │   ├── config_redis.py
@@ -41,15 +64,35 @@ Python2/3 practice code which refrence following books
 │   ├── single_task.py
 │   ├── tasks.py
 │   └── tasks.pyc
-├── client
-│   └── influxdb
+├── ceph
+│   ├── ceph.conf
+│   └── ceph_t.py
+├── class
+│   ├── demo.py
+│   └── special_method.py
 ├── cmd
 │   └── prsh
+├── collections
+│   ├── couter_t.py
+│   ├── default_dict_t.py
+│   ├── dequeue_t.py
+│   ├── named_tuple_t.py
+│   └── ordered_dict_t.py
 ├── concurrency
+│   ├── fork_process.py
 │   ├── future
 │   ├── gevent
 │   ├── multiprocessing
+│   ├── signal_t.py
 │   └── threading
+├── configparse
+│   ├── config.ini
+│   └── config_parse.py
+├── context
+│   ├── context_manager_t.py
+│   └── context_proto.py
+├── csv
+│   └── main.py
 ├── curses
 │   ├── newpad.py
 │   └── wrap.py
@@ -61,128 +104,16 @@ Python2/3 practice code which refrence following books
 │   └── sublist.py
 ├── datetime
 │   └── note.py
+├── db
+│   ├── pydblite_t.py
+│   └── sqlite_t.py
 ├── decorator
 │   └── deco.py
 ├── descriptor
 │   ├── descriptor.py
+│   ├── main.py
 │   └── property.py
-├── devpi
-│   └── note.md
-├── extending
-│   └── spam.c
-├── framework
-│   ├── OpenERP
-│   ├── bottle
-│   ├── django
-│   ├── flask
-│   └── pyramid
-├── func
-│   ├── functools_t.py
-│   ├── itertools_t.py
-│   └── operator_t.py
-├── get_text
-│   ├── example.py
-│   └── locale
-├── inheriance
-│   └── test.py
-├── jinja2
-│   ├── jinja2_test.py
-│   └── templates
-├── lang
-│   ├── bytes-t.py
-│   ├── note.txt
-│   ├── pinject_t.py
-│   └── theory.py
-├── lxml
-│   ├── a.py
-│   └── example.xml
-├── matplot
-│   ├── a.py
-│   ├── d.py
-│   ├── e.py
-│   ├── f.py
-│   ├── m.py
-│   ├── note
-│   └── ss.py
-├── metaclass
-│   └── metaclass.py
-├── note.md
-├── oauth
-│   └── example.py
-├── office
-│   └── doc.py
-├── oreilly
-│   ├── annotation.py
-│   ├── argparse_t.py
-│   ├── atexit_t.py
-│   ├── class_t.py
-│   ├── config.ini
-│   ├── config_parse.py
-│   ├── context_manager_t.py
-│   ├── context_proto.py
-│   ├── couter_t.py
-│   ├── data_processing.py
-│   ├── datetime_t.py
-│   ├── dateutil_t.py
-│   ├── dedupe_t.py
-│   ├── default_dict_t.py
-│   ├── dequeue_t.py
-│   ├── descriptor_t.py
-│   ├── enum_t.py
-│   ├── file.py
-│   ├── filter_t.py
-│   ├── fraction_t.py
-│   ├── func.py
-│   ├── getpass_t.py
-│   ├── heapq_t.py
-│   ├── iter_gene.py
-│   ├── logging_t.py
-│   ├── map_t.py
-│   ├── math_t.py
-│   ├── module_and_package.py
-│   ├── multiprocess.py
-│   ├── named_tuple_t.py
-│   ├── operator_t.py
-│   ├── ordered_dict_t.py
-│   ├── partial_t.py
-│   ├── priority_queue.py
-│   ├── proxy_t.py
-│   ├── random_t.py
-│   ├── reduce_t.py
-│   ├── signal_t.py
-│   ├── slice_t.py
-│   ├── special_attr.py
-│   ├── stateMachine.py
-│   ├── string_t.py
-│   ├── subprocess_t.py
-│   ├── unpack_item.py
-│   ├── web.py
-│   └── wraps.py
-├── orm
-│   ├── __pycache__
-│   └── official.py
-├── other
-│   ├── beautifulsoup_t.py
-│   ├── bianchenzhimei.py
-│   ├── install_m2crypto.md
-│   ├── jianzhioffer.py
-│   ├── libvirt_t.py
-│   ├── ms100.py
-│   ├── oursql_t.py
-│   └── parse_xlsx.py
-├── process
-│   ├── daemon.py
-│   └── test.py
-├── project
-│   ├── card
-│   ├── plague
-│   └── pvp
-├── protobuf
-│   ├── addressbook.proto
-│   ├── note.md
-│   ├── pbreader.py
-│   └── pbwriter.py
-├── python-patterns
+├── design-pattern
 │   ├── 3-tier.py
 │   ├── README.md
 │   ├── abstract_factory.py
@@ -218,6 +149,109 @@ Python2/3 practice code which refrence following books
 │   ├── strategy.py
 │   ├── template.py
 │   └── visitor.py
+├── devpi
+│   └── note.md
+├── docopt
+│   └── main.py
+├── extending
+│   └── spam.c
+├── file
+│   └── main.py
+├── framework
+│   ├── OpenERP
+│   ├── bottle
+│   ├── django
+│   ├── flask
+│   └── pyramid
+├── functools
+│   ├── functools_new.py
+│   ├── partial_t.py
+│   └── wraps.py
+├── gettext
+│   ├── example.py
+│   └── locale
+├── gunicorn
+│   └── usage.md
+├── heapq
+│   ├── heapq_t.py
+│   └── priority_queue.py
+├── influxdb
+│   └── main.py
+├── itertools
+│   └── main.py
+├── jinja2
+│   ├── jinja2_test.py
+│   └── templates
+├── json
+│   └── main.py
+├── lang.txt
+├── libs
+│   ├── codecs_t.py
+│   ├── dateutil_t.py
+│   ├── enum_t.py
+│   ├── getpass_t.py
+│   ├── pathlib_t.py
+│   ├── pinject_t.py
+│   ├── selectors_t.py
+│   └── tracemalloc_t.py
+├── logging
+│   └── logging_t.py
+├── lxml
+│   ├── a.py
+│   ├── example.xml
+│   └── note.md
+├── math
+│   ├── fraction_t.py
+│   └── main.py
+├── matplotlib
+│   ├── 3d.py
+│   ├── annotation.py
+│   ├── bar.py
+│   ├── bar_demo.py
+│   ├── hist.py
+│   ├── main.py
+│   ├── note.txt
+│   └── scatter.py
+├── metaclass
+│   └── main.py
+├── note.md
+├── numpy
+│   ├── fft.py
+│   └── main.py
+├── oauth
+│   └── example.py
+├── office
+│   ├── doc.py
+│   └── parse_xlsx.py
+├── openstack
+│   ├── libvirt_t.py
+│   ├── nova_client.py
+│   └── os_config.py
+├── oreilly
+│   ├── proxy_t.py
+│   ├── singleton.py
+│   └── stateMachine.py
+├── os
+│   └── main.py
+├── pandas
+│   ├── graph.py
+│   └── main.py
+├── project
+│   ├── card
+│   ├── plague
+│   └── pvp
+├── protobuf
+│   ├── addressbook.proto
+│   ├── note.md
+│   ├── pbreader.py
+│   └── pbwriter.py
+├── psutil
+│   └── main.py
+├── python3
+│   ├── annotation.py
+│   ├── bytes.py
+│   ├── prepare.py
+│   └── unpack_item.py
 ├── rabbit
 │   ├── new_task.py
 │   ├── new_worker.py
@@ -234,53 +268,32 @@ Python2/3 practice code which refrence following books
 │   ├── restless.py
 │   └── resty.py
 ├── select
-│   └── example.py
 ├── setuptools
 │   └── helloworld
-├── signal
-│   ├── receiver.py
-│   ├── receiver.pyc
-│   ├── run.py
-│   ├── run.pyc
-│   ├── signalib.py
-│   └── signalib.pyc
 ├── singleton
-│   ├── same_obj_with_same_args.py
-│   └── singleton.py
+│   └── same_obj_with_same_args.py
 ├── socket
 │   ├── multicast_receiver.py
 │   ├── multicast_sender.py
+│   ├── rpc
+│   ├── select
 │   ├── select_sock_client.py
 │   ├── select_sock_server.py
 │   ├── selectors_echo.py
 │   ├── socket_pair.py
 │   ├── socket_server_t.py
-│   ├── ssdp_client.py
-│   ├── ssdp_server.py
-│   ├── ssdp_server.pyc
-│   ├── uds_server.py
-│   ├── xmlrpc_client.py
-│   └── xmlrpc_server.py
-├── special_method
-│   ├── demo.py
-│   └── prepare.py
+│   ├── ssdp
+│   └── udp_server.py
 ├── sphinx
 │   ├── note.md
 │   └── sphinx_test
-├── standard_module
-│   ├── bisect_t.py
-│   ├── codecs_t.py
-│   ├── multiprocessing_t.py
-│   ├── pathlib_t.py
-│   ├── selectors_t.py
-│   └── tracemalloc_t.py
+├── sqlalchemy
+│   └── main.py
 ├── super
 │   ├── _super.py
 │   ├── _super.py3
 │   └── mro.py
 ├── system
-│   ├── os.txt
-│   └── psutil_t.py
 ├── testTool
 │   ├── doc_test.py
 │   └── unit_test.py
@@ -290,6 +303,7 @@ Python2/3 practice code which refrence following books
 │   ├── ipython.md
 │   ├── mock.md
 │   ├── oss.md
+│   ├── paramiko.md
 │   ├── pg_bouncer.md
 │   ├── pip.md
 │   ├── pyenv.md
@@ -302,14 +316,6 @@ Python2/3 practice code which refrence following books
 │   └── wheel.md
 ├── weakref
 │   └── weakref_t.py
-├── websocket
-│   ├── Procfile
-│   ├── __init__.py
-│   ├── myapp.py
-│   └── wsgi.py
-├── with
-│   ├── context_manager.py
-│   └── protocol.py
 ├── wxpython
 │   ├── button.py
 │   ├── dd.py
@@ -318,22 +324,13 @@ Python2/3 practice code which refrence following books
 │   ├── hello.py
 │   └── note.md
 ├── yaml
-│   ├── a.py
-│   └── et.yml
-├── yield
-│   ├── __pycache__
-│   ├── fib.py
-│   ├── gene_concurrent.py
-│   ├── yield.py
-│   └── yield_from.py
-└── zabbix_to_word
-    ├── config.yml
-    ├── doc
-    ├── graph
-    ├── lib
-    ├── new.py
-    ├── requirements.txt
-    ├── run.py
-    └── template
-```
+│   ├── et.yml
+│   └── run.py
+└── yield
+    ├── __pycache__
+    ├── fib.py
+    ├── gene_concurrent.py
+    ├── yield.py
+    └── yield_from.py
 
+```
