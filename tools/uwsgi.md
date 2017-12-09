@@ -59,4 +59,6 @@ server {
 ```
 uwsgi --ini uwsgi.ini # 启动
 uwsgi --reload /path/to/pid # 重启
+
+kill -9 pid | kill -HUP pid
 ```

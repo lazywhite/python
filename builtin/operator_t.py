@@ -14,7 +14,7 @@ portfolio = [
         {'name': 'ACME', 'shares': 75, 'price': 115.65}
     ]
 
-cheap = heapq.nsmallest(3, portfolio, key=itemgetter('price'))
+cheap = heapq.nsmallest(3, portfolio, key=itemgetter('price'), reverse=True)
 # or: cheap = heapq.nsmallest(3, portfolio, key=lambda s: s['price'])
 print(cheap)
 

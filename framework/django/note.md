@@ -386,17 +386,12 @@ request.session['username'] = 'bob'
 ```
 #### 14.1 Redis Session
 ```
-pip install django-redis-sessions
+pip install django-redis
 
-mysite/setting.py
-    SESSION_ENGINE = 'redis_sessions.session'
-    SESSION_REDIS_HOST = 'localhost'
-    SESSION_REDIS_PORT = 6379
-    SESSION_REDIS_DB = 0
-    SESSION_REDIS_PASSWORD = ''
-    SESSION_REDIS_PREFIX = 'session'
-    SESSION_REDIS_SOCKET_TIMEOUT = 1
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
+request.session['key'] = 'value'
 ```
 ### 15. change user password
 ```
@@ -734,6 +729,90 @@ local
 ```
 https://docs.djangoproject.com/en/1.11/howto/static-files/
 ```
+### 33 Generate PDF
+```
+pip install reportlab
+https://docs.djangoproject.com/en/1.11/howto/outputting-pdf/
+```
+
+### 34 Template
+```
+django.template.loader.get_template("template")
+django.template.loader.render_to_string("template", context)
+```
+### 35 CSRF
+```
+disable globally
+    commnet 'django.middleware.csrf.CsrfViewMiddleware',
+disable on specific view
+    from django.views.decorators.csrf import csrf_exempt
+
+    @csrf_exempt
+    def my_view(request):
+        return HttpResponse('Hello world')
+```
+
+### 36 Redis Cache
+```
+pip install django-redis
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+from django.core.cache import cache
+cache.set("key", "value", timeout=None)
+cache.set("key", "value", timeout=600)
+
+cache.ttl("key") # 显示ttl
+cache.persist("key") # 永不超时
+cache.expire("key", 60) # 设置超时
+cache.get("key")
+```
+
+### 37 Crontab
+```
+pip install django-crontab
+
+settings.py
+    INSTALLED_APPS = [
+        'django_crontab',
+    ]
+
+    CRONJOBS = [
+    ('*/5 * * * *', 'appname.cron.test','>>/home/test.log')
+    ]
+
+	LOGGING 
+
+		'django_crontab.crontab': {
+			'handlers' :['console'],
+			'level':'DEBUG',
+			'propagate': True
+		},
+
+
+python manage.py crontab add
+# crontabl -l
+python manage.py crontab show
+python manage.py crontab remove
+```
+
+### 38 自定义middleware
+
+### 39 Redis
+```
+pip install django-redis
+from djang_redis import get_redis_connection
+conn = get_redis_connection('default')
+
+```
+
 
 ## 六、 Tips
 ```
@@ -769,6 +848,8 @@ python manage.py migrate asset --database zabbix
 
 ./manage.py  makemigration <app> #不能添加--database
 ./manage.py  migrate <app> <0001> --fake --database=xx #跳过某些migration
+
+template中无法迭代defaultdict, 转化为dict
 
 ```
 

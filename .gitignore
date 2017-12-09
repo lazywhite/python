@@ -16,3 +16,4 @@ office/*.docx
 **/migrations/**
 
 **/*.jpg
+**/*.pdf

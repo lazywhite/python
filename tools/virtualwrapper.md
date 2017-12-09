@@ -46,5 +46,7 @@ precmd_functions+=(_virtualenv_auto_activate)
 (env)cdvirtualenv
 virtualenv --relocatable .
 env目录可直接拷贝使用
+
+不能relocate env, 最好做出一个copy再relocate
 ```
 

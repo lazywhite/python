@@ -61,7 +61,7 @@ python 数据类型
         object.__class__ --> type
         type是实例关系的顶点, 所有对象都是它的实例
 
-
+将iterator转换为list会导致iterator耗尽, 无法再迭代
 
 float('nan')
 float('inf')
@@ -250,3 +250,15 @@ __getattribute__
 Specifically, any module that contains a __path__ attribute is considered a package.
 
 2to3 -w (写入源文件) -n (不建立backup文件)
+
+
+s1 = slice(2, 7, 2)
+b = range(10)
+b[s]
+
+s1 = slice(2, -1, 2)
+b[s1]
+
+try:
+except:
+    logger.exception("error stack") # 将会将错误栈打印到日志中
