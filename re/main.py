@@ -1,8 +1,24 @@
 # -*- coding: utf-8 -*-
 import re
-# http://www.runoob.com/python/python-reg-expressions.html
-# search: 扫描字符串， 返回第一个成功的匹配
-# match: 从字符串的开始匹配
+'''
+# search: 匹配可以在字符串中间, 找到第一个匹配直接返回
+# match: 匹配必须从字符串开头开始
+
+# findall: 返回list
+# finditer: 返回iterator
+https://docs.python.org/2/library/re.html
+
+
+flags:
+    re.S| re.DOTALL  默认'.' 不会匹配\n, 开启后可匹配到
+    re.M| re.MULTILINE  默认'^,$'仅匹配整个字符串, 开启后匹配到每一行
+    re.I| re.IGNORECASE  默认区分大小写, 开启后不区分
+    
+非贪婪匹配
+    text2 = 'Computer says "no." Phone says "yes."'
+    p = re.compile(r'\"(.*?)\"')
+    p.search(text2)
+'''
 
 
 '''
