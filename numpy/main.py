@@ -1,16 +1,71 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 '''
-ndarray
+tips
+    np.set_printoptions(threshold='nan') # 默认打印有省略
+    一个ndarray只存储一种类型的元素
+    broadcast: 为了满足矩阵运算, 在特定情况下改变array shape
+    b = np.view(a) 浅拷贝
+    b = np.copy(a) 深拷贝
+    np.random.random() # 一个随机float number
+    a = np.random.randn(5, 3) #  5行3列
+    a = np.random.randint(5, 15, size=(2, 4)) # 2行4列随机整数
+
+np.r_
+np.c_
+
+np.newaxis
+np.nan 
+
+主要功能
+    多维数组计算
+    线性代数
+    针对shape的傅里叶变换
+
+ndarray attribute
     rank
     axes
-    ndim 维数 int
-    shape 维度 tuple
+    ndim 维数 
+    shape 维度
     size 元素数
     dtype 每个元素的类型
         itemsize 每个元素的大小
         name 类型名称
     data 存储的所有元素
+    flags
+
+ndarray manipulation
+    change shape
+        reshape()
+        flat # 迭代器
+        flatten() 
+        ravel()
+    transpose operations
+        transpose()
+        T
+        rollaxis
+        swapaxes
+    change dimensions
+        broadcast()
+        broadcast_to()
+        expand_dims
+        squeeze
+    joining array
+        vstack((a, b) 垂直合并
+        hstack((a, b)) 水平合并
+        column_stack(a, b) 将两个1维数组合并为二维数组
+        concatenate((a, b, b, a))
+    splitting
+        split
+        hsplit
+        vsplit
+    add remove elements
+        resize
+        append
+        insert
+        delete
+        unique
+
 
 dtype
     bool
@@ -27,178 +82,108 @@ dtype
     uint64
     complext64
     complext128 complex
+    string
 
-np.set_printoptions(threshold='nan')
-一个ndarray所有元素类型必须相同
+String dtype method
+    add()
+    multiply()
+    center()
+    capitalize()
+    title()
+    lower()
+    upper()
+    split()
+    splitlines()
+    strip()
+    join()
+    replace()
+    decode()
+    encode()
 
-array.reshape() 返回一个调整过的array, 自身不变
-array.resize() 将自身调整
-np.add(b)
-np.sqrt(a)
-np.exp(a)
-np.floor(a)
-np.log(a)
-np.sum()
-np.max(a, axis=0) # axis=0按列, axis=1按行
-np.floor
-np.cumsum() 累加, 元素个数与array相同
-np.diff(a) 相邻元素相差
-np.nonzero(a) 输出非0的元素的坐标
 
 
-np.logspace
-np.linspace
+数学运算
+    一元
+        np.power(a, 2)
+        np.ceil(a)
+        np.floor(a)
+        np.sqrt(a)
+        np.exp(a)
+        np.log(a)
+        np.nonzero(a) 输出非0的元素的坐标
+        np.diff(a) 相邻元素相差
 
-np.vstack((a, b) 垂直合并
-np.hstack((a, b)) 水平合并
-np.column_stack(a, b) 将两个1维数组合并为二维数组
-np.concatenate((a, b, b, a))
+    二元
+        np.add(a, b)
+        np.add(a, b)
+        np.subtract(a, b)
+        np.multiply(a, b)
+        np.divide(a, b)
 
-np.random.random() # 一个随机float number
-#a = np.random.randn(5, 3) #  5行3列
-#a = np.random.randint(5, 15, size=(2, 4)) # 2行4列随机整数
+    三角函数
+        np.sin()
+        np.cos()
+        np.tan()
+        np.cot()
+        np.arcsin()
+        np.arccos()
+        np.degrees() # 将数值转化为角度
+    统计
+        np.ptp(a, axis=n) 返回最大值减去最小值
+        np.cumsum() 累加, 元素个数与array相同
+        np.max(a, axis=0) # axis=0按列, axis=1按行
+        np.min(a, axis=0) # 
+        np.percentile()
+        np.median() 中间值, 必定为某元素
+        np.mean() 平均值
+        np.average() 带权重的平均值
+        np.sum()
+            a.sum(axis=0)) # 按列和
+            a.sum(axis=1)) # 按行和
+        
+        np.var()  sqrt(mean(abs(x - x.mean())**2))
+    sort, search, count
+        sort()
+        argsort()
+        lexsort()
+        argmax()
+        argmin()
+        nonzero()
+        where()
+        extract()
 
-np.r_
-np.c_
+    矩阵运算
+        dot()
+        vdot()
+        inner()
+        matmul()
+        determinant
+        solve()
+        inv()
 
-np.newaxis
+构造ndarray
+    np.empty()
+    np.zeros()
+    np.ones()
+    np.asarray(list)
+    np.frombuffer()
+    np.arange()
+    np.fromiter()
+    np.logspace()
+    np.linspace()
+    np.fromfunction()
+        def f(x, y):
+            return x * y
 
-np.hsplit()
-np.vsplit()
+        a = np.fromfunction(f, (3, 3), dtype=np.int) # 将元素的坐标作为输入
 
-# for row in A 迭代行
-# for row in A.T 迭代列
-# for ele in A.flat 迭代元素
-np.nan 
+
+
+导入导出
+    np.save_text("file", array)
+    b = np.load_text("file")
+    np.save("file", array)
+    array = np.load("file")
 '''
-
-
-a = np.array([1, 2, 3])
-a.shape # (1, 3)
-print(a)
-
-
-a = np.array([[1, 2], [3, 4], [5, 6]])
-print(a)
-print(a.shape)
-a = np.array([1, 2, 3, 4], ndmin=2)
-print(a)
-a = np.array([1, 2, 3, 4], dtype=np.complex)
-print(a)
-a = np.array([1, 2, 3, 4], dtype=np.float)
-print(a)
-
-print(a.shape, end=' ') 
-print(a.dtype.itemsize) # 数据类型的字节
-
-
-# 用0填充
-a = np.zeros((3, 4)) # dtype默认是np.float
-print(a)
-
-# 用随机数填充
-a = np.empty((3, 4), dtype=np.int32)
-
-# 用1填充
-a = np.ones((3, 4), dtype=np.int)
-print(a)
-
-# 用序列填充
-a = np.arange(12).reshape(4, 3)
-print(a)
-
-print('*' * 10)
-print(a.sum(axis=0)) # 按列和
-print(a.sum(axis=1)) # 按行和
-
-a = np.arange(12) # 产生一维数组
-print(a)
-print(np.sin(a)) # 对array中所有元素进行操作
-print(a < 6) 
-print(3 * a)
-
-'''
-np.linspace( 0, 2, 9 )                 # 9 numbers from 0 to 2
-x = np.linspace( 0, 2*np.pi, 100 )        # useful to evaluate function at lots of points
-f = np.sin(x)
-print x
-print f
-
-'''
-
-
-A = np.array( [[1,1], 
-                [0,1]] )
-B = np.array( [[2,0], 
-                [3,4]] )
-print(A*B) # 按元素乘法
-print(A.dot(B)) # 矩阵点乘
-
-b = np.linspace(0,np.pi,2)
-print(b)
-
-
-def f(x, y):
-    return x * y
-
-a = np.fromfunction(f, (3, 3), dtype=np.int) # 将元素的坐标作为输入
-
-print(a)
-
-for i in a.flat: # 迭代所有元素
-    print(i)
-    
-for row in a:
-    print(row)
-print('*' * 10)
-a = np.zeros((3, 3, 3), dtype=np.int)
-for row in a:
-    for rrow in row:
-        print(rrow)
-
-
-a = np.floor(10*np.random.random((3,4)))
-print(a)
-print(a.ravel()) # 扁平化
-print(a.T) # 转秩矩阵
-
-a = np.array([[1,2], [3, 4]], dtype=np.int)
-print(a)
-print(np.linalg.det(a)) # 求矩阵的行列式
-
-np.linalg.inv
-
-'''
-a = np.log(np.logspace(1, 10, 3))
-print a
-'''
-
-a = np.array([1, 3])
-b = np.array([2, 6])
-print(np.column_stack((a, b)))
-
-
-'''
-矩阵视图, 相当于浅拷贝
-'''
-c = a.view()
-print(c.base is a)
-print(c is a)
-print(c.flags)
-print(c.shape)
-print(a.flags)
-
-d = a.copy() # 深拷贝
-
-a = np.arange(10, 20).reshape(2, 5)
-a.argmax()
-a.argmin() # 最小元素的下标
-
-print(a.max(axis=1))
-
-a = np.arange(1, 7).reshape(2, 3)
-print(a[1][2]) # 1行2列
-print(a[1, 2]) # 1行2列
-print(a[1]) # 1行所有数
 
 
