@@ -1,5 +1,9 @@
-
 # -*- coding: utf-8 -*-
+'''
+keystoneauth1==3.2.0
+python-novaclient==9.1.1
+python-keystoneclient==3.13.0
+'''
 from novaclient.client import Client
 from os_config import *
 from keystoneauth1 import loading, session
@@ -17,23 +21,21 @@ nova = Client("2", session=session)
 
 
 print nova.flavors.list()
-print nova.hypervisors.findall()
+#print nova.hypervisors.findall()
 
 
 hypervisor_all = nova.hypervisor_stats.statistics()
 
-hypervisor_all.memory_mb
+print 'mem total: ', hypervisor_all.memory_mb
+print 'mem_used: ', hypervisor_all.memory_mb_used
 
-hypervisor_all.memory_mb_used
-
-hypervisor_all.disk_available_least  # 磁盘总量
-hypervisor_all.free_disk_gb ## 可用磁盘
+print 'disk_free: ', hypervisor_all.disk_available_least  # 磁盘总量
+print 'disk_total: ', hypervisor_all.free_disk_gb ## 可用磁盘
 
 
-hypervisor_all.vcpus
-hypervisor_all.vcpus_used
+print 'vcpu total: ', hypervisor_all.vcpus
+print 'vcpu used: ', hypervisor_all.vcpus_used
 
-hypervisor_all.running_vms
-
-hypervisor_all.count #物理机总量
+print 'vms running: ', hypervisor_all.running_vms
+print 'hypervisor total: ', hypervisor_all.count #物理机总量
 
