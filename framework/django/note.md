@@ -449,7 +449,7 @@ UUIDField:
 #### 17.2 Field Option
 ```
 null: 数据库字段值允许为null
-blank: form表单验证中, 允许空值
+blank: form表单验证中, 或者amdin页面, 允许空值
 choices: 
     class Person(models.Model):
         # 第一个元素为最终存储在表中的数据, 字段类型要是元素的数据类型
@@ -801,6 +801,8 @@ python manage.py crontab add
 # crontabl -l
 python manage.py crontab show
 python manage.py crontab remove
+
+在setting中修改cronjob后先remove再add
 ```
 
 ### 38 自定义middleware
@@ -812,7 +814,60 @@ from djang_redis import get_redis_connection
 conn = get_redis_connection('default')
 
 ```
+### 40 class base view
+```
+# Django==1.11
+from django.views import View
+class MyView(View):
+    http_method_names = ['get', 'post'] # 必须使用小写
+    def get(self, request, *args, **kwargs):
+        pass
+    def post(self, request, route_param, *args, **kwargs):
+        pass
 
+```
+
+### 41 django 1.11 admin svg图片不显示问题
+```
+project/settings.py
+    import mimetypes
+
+    mimetypes.add_type("image/svg+xml", ".svg", True)
+    mimetypes.add_type("image/svg+xml", ".svgz", True)
+```
+
+### 42 app admin页面自定义名称
+```
+local/apps.py
+    from django.app import AppConfig
+    class LocalConfig(AppConfig):
+        name = 'app'
+        verbose_name = '中文'
+
+local/__init__.py
+    default_app_config = 'local.apps.LocalConfig'
+```
+
+### 42 某model设置为只读
+```
+local/admin.py
+	from django.contrib import admin 
+
+	@admin.register(User)
+	class CLAdmin(admin.ModelAdmin):
+		actions = None
+
+		def has_add_permission(self, request):
+			return True
+
+		def has_change_permission(self, request, obj=None):
+			return True
+
+		def has_delete_permission(self, request, obj=None):
+			return False
+
+
+```
 
 ## 六、 Tips
 ```
@@ -827,13 +882,14 @@ middleware
 redirect("account:profile", permanent=True)
 redirect("/user/login/", permanent=True)
 
-DATABASE_ROUTER
+主从读写分离
+按app的数据库配置
+    为某个app指定read/write, 要注意代码不要调用这个app之外的model
 
-
-## 逆向生成models.py
-1. 在setting里面设置你要连接的数据库类型和连接名称，地址之类
-2. django-admin.py startapp app
-3. python manage.py inspectdb > app/models.py
+逆向生成models.py
+    1. 在setting里面设置你要连接的数据库类型和连接名称，地址之类
+    2. django-admin.py startapp app
+    3. python manage.py inspectdb > app/models.py
 
 
 无主键的model无法进行迭代
@@ -841,16 +897,57 @@ ALLOWED_HOSTS = [ * ]
 
 返回301, 可能url路径少了'/'
 
+多数据库
+    ./manage.py migrate --database=users
 
-python manage.py makemigration asset 
-python manage.py migrate asset --database zabbix
+    ./manage.py makemigrations asset  0001
+    ./manage.py sqlmigrate asset 0001 --database zabbix # 查看生成的sql脚本
+    ./manage.py migrate asset 0001 --database zabbix
+    ./manage.py  makemigration <app> #不能添加--database
+    ./manage.py  migrate <app> <0001> --fake --database=xx #跳过某些migration
 
-
-./manage.py  makemigration <app> #不能添加--database
-./manage.py  migrate <app> <0001> --fake --database=xx #跳过某些migration
-
+某个字段从CharField变为Enum类型时, 做好数据备份, 将原表中的数据全部设置为null, 然后可进行migrate
 template中无法迭代defaultdict, 转化为dict
 
+运行脚本  
+    python manage.py shell_plus  # execfile("script.py")
+
+快速为所有url添加前缀
+    project.settings
+        ROOT_URLCONF = 'dashboard.root_urls'
+    project.root_urls
+		from django.conf.urls import url, include
+
+		urlpatterns = [
+			url(r'^api/', include('project.urls')),
+		]
+
+	project.urls 保持不变
+
+
+models.ForeignKey(IDC, unique=True)
+    foreign key 字段不能使用unique, 否则跟OneToOneField是一样的
+
+Items.objects.exclude(field__isnull=true)
+
+attr_list = ['a', 'b', 'c']
+Items.objects.filter(reduce(operator.or_, (Q(name__contains=attr) for attr in attr_list)))
+    select * from items where name like "%a" or name like "%b%";
+
+{% for item in items %}
+    {% if forloop.counter0|divisibleby:2 %}
+        content
+    {% endif %}
+{% endfor %}
+
+为model设置admin页面别名
+    class Meta:
+        verbose_name=u'模块'
+        verbose_name_plural=u'模块'
+为field设置admin页面别名
+    change_time=models.DateTimeField(verbose_name=u'更改时间')
+
 ```
+
 
 
