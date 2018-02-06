@@ -141,6 +141,9 @@ python manage.py makemigrations polls # create migration files with ID
 mysql> drop table snippets;
 mysql> delete from django_migrations where app='snippets';
 bash> rm -rf snippets/migrations
+
+如果之前的migrations数据丢失， 可以将models恢复到老的状态， 然后migrate --fake
+最后添加新的model定义
 ```
 ### 2. django ipython shell
 ```
@@ -156,8 +159,10 @@ mysite/settings.py
 
     SHELL_PLUS_DONT_LOAD = ['<app_name>', '<app_name>']
 
-
-python manage.py shell_plus --print-sql # 打印执行的sql
+# 打印执行的sql
+    python manage.py shell_plus --print-sql
+    or 
+    SHELL_PLUS_PRINT_SQL = True
 ```
 ### 7. django cache
 ```
@@ -343,6 +348,7 @@ Field  Lookups
 
 
 aggregation function
+    返回一个字典, 而不是Queryset
     avg
         User.objects.aggregate(Avg('id'))
     min
@@ -378,10 +384,26 @@ Query Related tools
 
 ### 14. cookie and session
 ```
-response.set_cookie('username', "bob")
-request.COOKIE.get('username')
+Cookie
+	import datetime
 
-request.session['username'] = 'bob'
+	def set_cookie(response, key, value, days_expire = 7):
+	  if days_expire is None:
+		max_age = 365 * 24 * 60 * 60  #one year
+	  else:
+		max_age = days_expire * 24 * 60 * 60 
+	  expires = datetime.datetime.strftime(datetime.datetime.utcnow() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
+	  response.set_cookie(key, value, max_age=max_age, expires=expires, domain=settings.SESSION_COOKIE_DOMAIN, secure=settings.SESSION_COOKIE_SECURE or None)
+
+	def view(request):
+	  response = HttpResponse("hello")
+	  set_cookie(response, 'name', 'jujule')
+	  return response
+
+	request.COOKIE.get('username')
+
+Session
+	request.session['username'] = 'bob'
 
 ```
 #### 14.1 Redis Session
@@ -562,29 +584,58 @@ INSTALLED_APPS
 ```
 ### 20. Request and Response 
 ```
-path variable
-/user/{ID}/ : url(r'user/(?P<ID>\d+)/$', views.detail, name="userDetail")
-    request param
-/user?name='bob'&age=10
-    request.GET.get('name')
-```
+Request Object
+    request.method  # 请求方法
+    request.user   # 当前session用户
+    request.COOKIE
 
-```
+Response Object
+    response.set_cookie()
+
 render(request, 'template', context=locals())
-render_to_response will be depracated
 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 ```
 ### 21 Template Comment
 ```
 {% comment %} {% endcomment %}
-{# oneline comment $}
+{# oneline comment #}
+
+from django.tempate import Template, Context
+
+t = Template("this is {{ name }}")
+d = {"name" : "bob"}
+t.render(Context(d))
 ```
 ### 22 Logging
 ```
-formatter
 logger
+    日志系统的entry point
 handler
+    决定每条信息的处理
 filter
+    在logger与handler之间进行消息过滤
+formatter
+    message的最终格式
+
+settings.py
+    LOGGING = {
+        'project.app': {
+            'handlers' :['file_handler'],
+            'level':'DEBUG',
+            'propagate': True
+        },
+
+    }
+project/app/view.py
+	import logging
+	logger = logging.getLogger("project.app")
+	logger.warn("warning")
+    
+    try:
+        1/0
+    except:
+        logger.exception("error")
+    
 ```        
 
 ### 23 SMTP
@@ -744,12 +795,33 @@ django.template.loader.render_to_string("template", context)
 ```
 disable globally
     commnet 'django.middleware.csrf.CsrfViewMiddleware',
+
 disable on specific view
     from django.views.decorators.csrf import csrf_exempt
 
     @csrf_exempt
     def my_view(request):
         return HttpResponse('Hello world')
+
+配置
+    CSRF_USE_SESSIONS = False  #默认使用csrftoken cookie保存, 开启后存储在服务端
+    CSRF_HEADER_NAME = 'X-CSRFToken' # 将token放在header进行传递时默认的key
+    CSRF_COOKIE_NAME = 'csrftoken' # token放在在cookie内时默认的key
+
+django csrf middleware 验证request csrf toke的流程
+    1. 从cookie获取token, 不存在则返回403
+    2. 如果是post方法, 则检查 form data 'csrfmiddlewaretoken'
+        不存在则从request.META[CSRF_HEADER_NAME]中获取
+        将两者比对, 相同则通过
+ 
+与axios的配合使用
+    1. django login api 使用csrf_exempt
+    2. 登录成功后, 使用get-token api获取token
+    3. 将token放入X-CSRFToken header中
+        api.getCsrfToken().then(res=>{
+            var token = res.data;
+            axios.defaults.headers['X-CSRFToken'] = token;
+        })
 ```
 
 ### 36 Redis Cache
@@ -869,6 +941,63 @@ local/admin.py
 
 ```
 
+### 43 生成unique key
+```
+class Test(models.Model):
+    name = models.CharField(unique=True)
+
+class Test(models.Model):
+    user = models.ForeignKey(User)
+    name = models.CharField(unique=True)
+    class Meta:
+        unique_together = ('user', 'name')
+
+如果在创建表之后再添加unique=True, migrate有可能不执行, 需要确认或手动执行
+    alter table app_test add unique(name);
+```
+
+### 44 权限认证
+```
+method view
+    from django.contrib.auth.decorators import user_passes_test
+    @user_passes_test(lambda u:u.is_superuser)
+    def req(request):
+        pass
+
+class based view
+    from django.contrib.auth.mixins import UserPassesMixin, LoginRequiredMixin
+    from django.views import View
+
+    class CriteriaRootView(LoginRequiredMixin, UserPassesTestMixin, View):
+
+        # 权限检测
+        def test_func(self):
+            if self.request.method == 'GET':
+                return True
+            if self.request.method == 'POST' and self.request.user.is_superuser:
+                return True
+            return False
+
+        # override  登录跳转
+        def get_login_url(self):
+           if not self.request.user.is_authenticated():
+                return super(CriteriaRootView, self).get_login_url()
+           else:
+                return '/account/login/'
+```
+### 45 事务
+```
+from django.db.utils import transaction
+
+@transaction.atomic(using="default") # 多数据库连接
+def func(request):
+    pass
+
+@transaction.atomic
+def func(request):
+    pass
+```
+
 ## 六、 Tips
 ```
 python -c "import django; print(django.get_version())"
@@ -890,6 +1019,8 @@ redirect("/user/login/", permanent=True)
     1. 在setting里面设置你要连接的数据库类型和连接名称，地址之类
     2. django-admin.py startapp app
     3. python manage.py inspectdb > app/models.py
+    4. 仅生成某张表
+        python manage.py inspectdb <table_name>
 
 
 无主键的model无法进行迭代
@@ -946,6 +1077,20 @@ Items.objects.filter(reduce(operator.or_, (Q(name__contains=attr) for attr in at
         verbose_name_plural=u'模块'
 为field设置admin页面别名
     change_time=models.DateTimeField(verbose_name=u'更改时间')
+
+
+ForeignKey model名称加引号, 其他情况可以不加
+	1. You want a recursive relationship (eg - model.ForeignKey('self'))
+	2. For referring to a model that is possibly not defined yet (for cyclic relationships).
+	3. A shortcut to refer to a model in another application (eg - model.ForeignKey('app.mymodel'))
+
+
+from django.views.decorators.http import require_http_methods
+@require_http_methods(["POST", "GET"])
+
+exception
+    django.http.Http404
+    django.db.utils.IntegrityError
 
 ```
 
