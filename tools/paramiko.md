@@ -1,6 +1,6 @@
 ```
 pip install -U pip setuptools
-pip install paramiko #cryptography
+pip install paramiko cryptography
 ```
 
 ```

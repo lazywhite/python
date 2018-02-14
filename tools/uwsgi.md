@@ -12,7 +12,8 @@ vacuum=True
 max-requests=5000
 daemonize=/var/log/dashboard.log
 socket=dashboard.sock
-process=10
+processes=10
+threads=10
 env=DJANGO_SETTINGS_MODULE=dashboard.settings
 ```
 
@@ -61,4 +62,10 @@ uwsgi --ini uwsgi.ini # 启动
 uwsgi --reload /path/to/pid # 重启
 
 kill -9 pid | kill -HUP pid
+```
+
+## Logging
+```
+默认日志会打印在stdout/stderr, 使用--logto <file.log> 或者 --daemonize <file.log>
+
 ```
