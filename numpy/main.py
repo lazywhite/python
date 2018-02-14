@@ -25,8 +25,8 @@ np.nan
 ndarray attribute
     rank
     axes
-    ndim 维数 
-    shape 维度
+    ndim 维数    行数
+    shape 维度   (行数, 列数)
     size 元素数
     dtype 每个元素的类型
         itemsize 每个元素的大小
@@ -184,6 +184,9 @@ String dtype method
     b = np.load_text("file")
     np.save("file", array)
     array = np.load("file")
+
+遍历
+    np.nditer(a)
 '''
 
 
