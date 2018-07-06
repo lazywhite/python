@@ -1,5 +1,5 @@
 ## Introduction
-support for multiple virtualenv for same python version, a wrapper for virtualenv
+可配合pyenv使用, 需要为每个版本安装virtualenvwrapper包, 并source对应的virtualenvwrapper.sh
 
 ## Installation
 ```

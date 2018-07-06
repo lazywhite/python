@@ -11,12 +11,12 @@ class Deco(object):
         self.func = func
         
     def __call__(self,a_string):
-        print 'deco print'
+        print('deco print')
         self.func(a_string)
 
 @Deco
 def f(a_string):
-    print "func print" ,a_string
+    print("func print" ,a_string)
 
 
 f('something')
@@ -33,13 +33,13 @@ f = deco_one(deco_two(f))  #deco_one在最外面, 附加的特性最先执行
 '''
 def deco_one(func):
     def _wrapper(arg):
-        print 'deco one print'
+        print('deco one print')
         func(arg)
     return _wrapper
 
 def deco_two(func):
     def _wrapper(arg):
-        print 'deco two print'
+        print('deco two print')
         func(arg)
     return _wrapper
 
@@ -48,7 +48,7 @@ def deco_two(func):
 @deco_one
 @deco_two
 def f(a_str):
-    print "func print" , a_str
+    print("func print" , a_str)
 
 
 
@@ -59,13 +59,13 @@ f(100)
 
 def deco_three(func):
     def _wrapper(*args, **kwargs):
-        print "deco print"
+        print("deco print")
         func(*args, **kwargs)
     return _wrapper
 
 @deco_three
 def f(name, age):
-    print "func print", name, age
+    print("func print", name, age)
 
 f("bob", 10)
 
@@ -73,17 +73,16 @@ f("bob", 10)
 ## 4. 带参数的装饰器
 
 def deco_four(deco_args):
-    print "deco_args: " , deco_args
     def _wrapper(func):
         def __wrapper(*args, **kwargs):
-            print "inside deco"
+            print("deco_args: " , deco_args)
             func(*args, **kwargs)
         return __wrapper    
     return _wrapper
 
 @deco_four(100)
 def f(name, age):
-    print "func print", name, age
+    print("func print", name, age)
 
 f("alice", 10)
 
@@ -91,26 +90,26 @@ f("alice", 10)
 class Locker:
     lock = False
     def __init__(self):
-        print "locker is initialized" 
+        print("locker is initialized") 
     
     @classmethod
     def acquire(cls):
         if cls.lock is False:
-            print "lock.acquire() is called"
+            print("lock.acquire() is called")
             cls.lock = True;
         else:
-            print "waiting for lock"
+            print("waiting for lock")
         
     @classmethod
     def release(cls):
         if cls.lock is True:
-            print "lock.release() is called"
+            print("lock.release() is called")
             cls.lock = False
 
 def deco_five(cls):
     def _wrapper(func):
         def __wrapper():
-            print "before func is called"
+            print("before func is called")
             cls.acquire()
             try:
                 func()
@@ -123,6 +122,6 @@ def deco_five(cls):
 
 @deco_five(Locker)
 def f():
-    print 'func is called'
+    print('func is called')
 
 f()

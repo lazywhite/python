@@ -6,6 +6,9 @@ pip install argparse
 参数相互排斥
     parser.add_mutually_exclusive_group()
 
+参数list
+    action="append"
+
 参数备选list
     choices=[]
 

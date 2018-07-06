@@ -21,3 +21,7 @@ for i in B:
 
 
 test = Enum('test', ['good', 'bad'])
+# or
+#test = Enum('test', ('good', 'bad'))
+
+test.__members__

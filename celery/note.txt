@@ -39,3 +39,11 @@ usage
         from .tasks import add
         r = add.delay(4, 4)
         print(r.get())
+
+
+using with django
+    celery > 4.0  django > 1.8
+
+    cd demo; celery -A demo worker  #start worker
+
+

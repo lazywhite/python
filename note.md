@@ -4,16 +4,21 @@ configure: error: C preprocessor "clang++" fails sanity check
 
 方法： **sudo** pip install pycrypto
 ```
-## 2. django template unicode decode error
+## 2. CentOS-7 更新pip
 ```
-manage.py
-    reload(sys)
-    sys.setdefaultencoding('utf8')
+yum remove python-setuptools python-pip
+python get-pip.py
 
-path/to/template.html
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    </head>
-views.py
-    # -*- coding: utf-8 -*-
 ```
+
+## 3. requirements.txt
+```
+pyramid>=1.4,<1.5
+```
+## 4. http server
+```
+python -m SimpleHTTPServer 0.0.0.0:8000
+python -m http.server --bind 0.0.0.0 8000
+
+```
+

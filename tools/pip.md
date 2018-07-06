@@ -20,6 +20,8 @@ virtualenv --always-copy --relocatable
 ## ~/.pip/pip.conf
 ```
 [global]
-index-url = http://pypi.douban.com/simple
-trusted-host = pypi.douban.com
+index-url =  http://pypi.mirrors.ustc.edu.cn/simple
+format = columns
+[install]
+trusted-host = pypi.mirrors.ustc.edu.cn
 ```

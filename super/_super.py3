@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+'''
+super()指__mro__中下一个class
+'''
 class Foo:
     def __init__(self, name):
         print("Foo created")

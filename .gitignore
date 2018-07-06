@@ -17,3 +17,5 @@ office/*.docx
 
 **/*.jpg
 **/*.pdf
+
+**/*.sqlite3

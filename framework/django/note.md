@@ -760,7 +760,12 @@ local
             def ready(self):
                 import local.signals
     signals.py
+        from django.db.models.signals import pre_save
+        from django.dispatch import receiver
+
         @receiver(<signal_name>, sender=<Model>)
+        def handler(sender, **kwargs):
+            pass
 
         signal_name
             pre_save: before obj.save()
@@ -773,7 +778,18 @@ local
 
 
 自定义signal
-    user_logged_in = Signal(providing_args=['request', 'user'])
+    signals.py
+        from django.dispatch import Signal
+        pizza_done = Signal(providing_args=['topping', 'size'])
+
+        @receiver(pizza_done, sender="chef")
+        def pizza_handler(sender, topping, size, **kwargs): # 必须有**kwargs
+            pass
+
+    views.py
+        from .signals import pizza_done
+        def my_view(request):
+            pizza_done.send(sender="chef", topping=10, size=20)
 
 ```
 ### 32 Static file
@@ -997,7 +1013,193 @@ def func(request):
 def func(request):
     pass
 ```
+### 46 django template unicode decode error
+```
+manage.py
+    reload(sys)
+    sys.setdefaultencoding('utf8')
 
+path/to/template.html
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    </head>
+views.py
+    # -*- coding: utf-8 -*-
+```
+
+### 47 ModelForm
+```
+from django.forms import ModelForm, TextArea
+from .models import Author
+class Author(models.Model):
+    name = models.CharField()
+    title = models.CharField()
+    birth_date = models.DateField(editable=False) # form不包含此field
+
+class AuthorForm(ModelForm):
+    # 完全自定义某个form filed
+    slug = CharField(validators=[validate_slug]) # django.forms.CharField
+    class Meta:
+        model = Author
+        fields = '__all__'  # 全部使用
+        fields = ['name', 'title']  # 指定列表
+        exclude = ['title']
+        localized_fields  = '__all__' # 默认不会国际化
+        # 改变默认widget
+        widgets = {
+            'name': TextArea(attrs={"cols": 80, "rows": 20})
+        }
+       labels = {
+            'name': _('Writer'),
+        }
+        help_texts = {
+            'name': _('Some useful help text.'),
+        }
+        error_messages = {
+            'name': {
+                'max_length': _("This writer's name is too long."),
+            },
+        }
+
+def process(request):
+    if request.method == 'GET':
+        form = AuthorForm()
+        return render(request, 'app/add_author.html', locals())
+    if request.method == 'POST':
+        '''
+        # for create
+        form = AuthorForm(request.POST)
+        form.save()
+
+        # change before save
+        author = form.save(commit=False)
+        author.attr = 'modified'
+        author.save()
+        form.save_m2m() # 仅在commit=False时使用
+        '''
+
+        '''
+        # for update
+        author = Author.objects.get(pk=10)
+        form = AuthorForm(request.POST, instance=author)
+        form.save()
+        '''
+
+        '''
+        author = Author.objects.get(pk=3)
+        form = AuthorForm(initial={"name": "default", instance=author)
+        form['name'].value() # => "default" initial参数有最高优先级
+        form['title'].value() # => "MR" 
+        '''
+        return render(request, 'app/add_author.html', locals())
+
+```
+## 48 认证系统
+```
+自定义权限, 默认会创建add_author, change_author, delete_author
+class Author(models.Model):
+    class Meta:
+        permissions = (
+            ("view_author", "View Author")
+        )
+
+python manage.py makemigrations <app>
+python manage.py migrate <app> <num> 将会创建Permission对象
+注意分库的时候, 要指定使用权限表所在的db source
+
+
+# 创建普通用户
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import Permission, User, Group
+from django.contrib.contenttypes.models import ContentType
+
+u = User.objects.create_user(username="demo", email="test@123.com", password="demo")
+u.set_password("new")
+u.check_password("new")
+u = authenticat(username="demo", password="demo")
+
+u.user_permissions.all() # 直接关联到用户的权限
+# 创建root用户
+python manage.py createsuperuser
+
+# 创建组
+g = Group.objects.create(name="admin")
+g.permissions.all() # 关联到组的所有权限
+
+u.groups.add(g) # 添加用户到组
+
+author_ct = ContentType.objects.get_for_model(Author)
+
+perms = Permission.objects.filter(content_type=author_ct)
+change_author = perms[1]
+g.permissions.add(change_author)
+
+# u.has_perm()会检查自身及所属组的所有权限
+# superuser has_perm()全部返回True
+u.has_perm("polls.change_author") # => True 
+
+# 新建自定义权限
+perm = Permission.objects.create(codename="rename_author",
+                name="Can rename author",
+                content_type=author_ct)
+
+u.user_permissions.add(perm)
+u.has_perm("polls.rename_author") # => False  
+# 因为权限会在第一次获取user object时缓存下来, 因此添加新权限后要重新获取
+u = get_object_or_404(User, pk=user_id)
+u.has_perm("polls.rename_author") # => True
+
+# 权限相关decorator
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
+raise_exception=True, 会返回403而不是redirect
+permission_required(perm, login_url=None, raise_exception=False)
+@permission_required("polls.add_author")
+def myview(request):
+    pass
+
+
+## 权限在模板系统中的使用
+{{ user }} # 表示当前用户
+{{ perms }} # 包含当前user的所有权限
+{% if perms.polls.delete_author %}
+
+默认权限由auth package提供, 新建model后, 需要重新migrate 所有
+```
+
+## 49 ORM API
+```
+author = Author.objects.get(pk=1)
+a = Author.objects.create()
+author.save()
+author.delete()
+
+# many2many
+author.books_set.all() # 列表
+author.books_set.set([book1, book2]) # 重设
+author.books_set.add(book1, book2) # 增加
+author.books_set.remove(book1, book2) # 删除
+author.books_set.clear() # 清空
+
+```
+## 50 登录登出
+```
+from django.contrib.auth import login, authenticate, logout
+user = authenticate(username="", password="")
+if user is not None:
+    login(request, user) 
+
+logout(request)
+
+from django.contrib.auth.decorators import login_required
+
+#redirect_filed_name: 字段名 如果用户成功登录后, 跳转到的页面
+# login_url: 如果用户未登录, 跳转到的页面, 全局设置  settings.LOGIN_URL
+@login_required(redirect_field_name="next", login_url="/accounts/login")
+def myview(request):
+    pass
+```
 ## 六、 Tips
 ```
 python -c "import django; print(django.get_version())"
@@ -1042,6 +1244,12 @@ template中无法迭代defaultdict, 转化为dict
 
 运行脚本  
     python manage.py shell_plus  # execfile("script.py")
+    python manage.py shell < script.py
+
+    import os
+    import django
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'project.settings'
+    django.setup()
 
 快速为所有url添加前缀
     project.settings
@@ -1092,6 +1300,28 @@ exception
     django.http.Http404
     django.db.utils.IntegrityError
 
+
+设置用户密码
+    user.set_password("new")
+    user.save()
+
+UnixtimestampField
+    https://pypi.python.org/pypi/django-unixtimestampfield
+
+python3 安装 mysql driver
+    pip install pymysql
+    django/mange.py
+        import pymysql
+        pymysql.install_as_MySQLdb()
+
+    or
+
+    pip install mysqlclient
+
+QuerySet 不支持负数下标
+
+template 声明变量
+    {% with var=value %} {% endwith %}
 ```
 
 

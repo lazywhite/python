@@ -57,3 +57,9 @@ s = "Bob Deline"
 p = re.compile(r'(?P<name>\w*)\s+(?P<surname>\w*)')
 g = p.match(s)
 print g.groupdict()
+
+
+# ()决定是否保留分割符
+re.split('\W', 'foo/bar spam\neggs')
+re.split('(\W)', 'foo/bar spam\neggs')
+

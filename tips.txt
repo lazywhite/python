@@ -154,12 +154,13 @@ print c # [11, 2]
 print d # [11, 2]
 
 
-def change():
-    global y 
-    y += 10
-y = 100
-change()
-print y #110
+global
+    y = 100
+    def change():
+        global y 
+        y += 10
+    change()
+    print y #110
 
 进制转换
     bin() oct() int() hex()
@@ -262,3 +263,58 @@ b[s1]
 try:
 except:
     logger.exception("error stack") # 将会将错误栈打印到日志中
+
+空字符串为false
+
+with open('file') as f:
+    data = f.read()  # data为一个字符串
+    data = f.readlines() # data为一个列表
+
+
+求某个元素的下标
+    a = ['a', 'b']
+    a.index('a')
+
+参数传递
+    对于不可变对象作为函数参数，相当于C系语言的值传递；
+    对于可变对象作为函数参数，相当于C系语言的引用传递。
+
+按照多种属性排序
+    sorted(obj_list, key=itemgetter("attr1", "attr2"))
+
+lambda表达式不能跨行
+    使用print 
+        from __future__ import print_function
+        lambda x: print("test")
+    无参lambda
+        lambda : True
+
+
+dict comprehension
+    {key.upper(): value for key, value in dct.items()}
+
+python3 没有commands模块, 使用subprocess
+    subprocess.call(["ls", "-al"], shell=False)
+    subprocess.call("ls -al", shell=True)
+
+
+absolute import 
+    pkg/
+    pkg/init.py
+    pkg/main.py
+    pkg/string.py
+
+    from __future__ import absolute_import
+
+    main.py
+        import string          # 系统builtin string module
+        from pkg import string # 当前目录module
+
+
+
+字符串替换
+    %.2f 保留小数点2位
+    %%   escape %
+
+编译安装python3
+    yum install tk-devel sqlite-devel readline-devel gdbm-devel xz-devel bzip2-devel openssl-devel; make -j

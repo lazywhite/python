@@ -19,6 +19,12 @@ class MyClass(object):
 
 
 class B(object):
+    '''
+    setter, deleter方法名必须跟属性同名
+    只有getter, 没有setter无法对属性进行赋值
+
+    setter需要额外定义, 默认不包含
+    '''
     def __init__(self, first_name):
         self.first_name = first_name
 
