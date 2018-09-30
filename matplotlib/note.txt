@@ -1,2 +1,0 @@
-避免使用pylab, 直接使用matplotlib, numpy
-
