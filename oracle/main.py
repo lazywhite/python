@@ -13,3 +13,8 @@ cursor.execute("""
 row = cursor.fetchall()
 for row in row:
     print(row)
+
+cursor.execute('''insert into tb(col1) values ('val')''')
+connection.commit()
+
+connection.close()
