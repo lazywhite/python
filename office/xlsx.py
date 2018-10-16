@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+'''
+pip install xlrd
+'''
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')

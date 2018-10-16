@@ -729,6 +729,12 @@ test database
 ### 30. 跨域
 [djang-corsheaders](https://pypi.python.org/pypi/django-cors-headers/2.0.0)  
 
+    CORS_ALLOW_CREDENTIALS = True
+    CORS_ORIGIN_WHITELIST = (
+        '192.168.1.70:8080',
+    )
+
+
 ### 31. uwsgi部署
 ```
 uwsgi不会响应静态文件请求
@@ -1315,7 +1321,7 @@ python3 安装 mysql driver
         pymysql.install_as_MySQLdb()
 
     or
-
+    yum -y install mariadb-devel
     pip install mysqlclient
 
 QuerySet 不支持负数下标
