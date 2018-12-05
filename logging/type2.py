@@ -3,6 +3,7 @@ import logging
 def main():
    logging.basicConfig(
            filename = 'app.log',
+           filemode="a", # default is 'a'
            level = logging.ERROR,
            format = '%(levelname)s:%(asctime)s:%(message)s')
    logger = logging.getLogger()
