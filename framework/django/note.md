@@ -367,6 +367,7 @@ Query Related tools
         使用符号&或者|将多个Q()对象组合起来传递给filter()，exclude()，get()等函数。当多个Q()对象组合起来时，Django会自动生成一个新的Q()。
         逗号之间的Q是and关系, '|' 或, '~' 取反
         Q()对象可以结合关键字参数一起传递给查询函数，不过需要注意的是要将Q()对象放在关键字参数的前面
+        from django.db.models import Q
         News.objects.get(
             Q(pub_date=date(2005, 5, 2)) | Q(pub_date=date(2005, 5, 6)),
             question__startswith='Who')
@@ -972,7 +973,10 @@ class Test(models.Model):
     user = models.ForeignKey(User)
     name = models.CharField(unique=True)
     class Meta:
-        unique_together = ('user', 'name')
+        unique_together = (('user', 'name'),)
+        index_together = [
+            ['user', 'name'],
+        ]
 
 如果在创建表之后再添加unique=True, migrate有可能不执行, 需要确认或手动执行
     alter table app_test add unique(name);
