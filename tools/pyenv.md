@@ -19,6 +19,8 @@ wget http://mirrors.sohu.com/python/2.7.9/Python-2.7.9.tar.xz
 mv Python-2.7.9.tar.xz ~/.pyenv/cache/
 
 yum -y install sqlite-devel # 防止no module named "_sqlite3"
-pip install 2.7.9
-pip global 2.7.9
+pyenv install 2.7.9
+pyenv global 2.7.9
+
+pyenv install --list
 ```
