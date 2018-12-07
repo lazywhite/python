@@ -3,27 +3,23 @@ import random
 
 from multiprocessing import Process, Queue, current_process, freeze_support
 
-#
-# Function run by worker processes
-#
 
 def worker(input, output):
-    for func, args in iter(input.get, 'STOP'):
+    '''
+    Args:
+        input(Queue)
+        output(Queue)
+    '''
+    for func, args in iter(input.get, 'STOP'):  # 当input.get返回'STOP'时, 停止执行
         result = calculate(func, args)
         output.put(result)
 
-#
-# Function used to calculate result
-#
 
 def calculate(func, args):
     result = func(*args)
     return '%s says that %s%s = %s' % \
         (current_process().name, func.__name__, args, result)
 
-#
-# Functions referenced by tasks
-#
 
 def mul(a, b):
     time.sleep(0.5*random.random())
@@ -33,11 +29,8 @@ def plus(a, b):
     time.sleep(0.5*random.random())
     return a + b
 
-#
-#
-#
 
-def test():
+def main():
     NUMBER_OF_PROCESSES = 4
     TASKS1 = [(mul, (i, 7)) for i in range(20)]
     TASKS2 = [(plus, (i, 8)) for i in range(10)]
@@ -73,6 +66,6 @@ def test():
 
 
 if __name__ == '__main__':
-    freeze_support()
-    test()
+    freeze_support() # 针对win平台(win平台进程不能fork)
+    main()
 
