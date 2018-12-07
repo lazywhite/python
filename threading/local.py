@@ -4,6 +4,8 @@ from random import randint
 
 '''
 每个线程调用同一个threading.local(), 自动获取对应线程的local对象
+
+store为一个instance, 可以赋值新属性
 '''
 store = threading.local()
 
