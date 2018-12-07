@@ -1,19 +1,18 @@
-#concurrent.futures.Executor: abc class 
-#    submit(fn, *args, **kwargs): return a 'future' object 
-#    map(fn, *iterables):  
-#    shutdown
-
-#deadlock can occur when the callable associated  with a future
-#waits on the result of another future
-
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib import request
 
-URLS = ['http://www.foxnews.com/',
-        'http://www.cnn.com/',
-        'http://europe.wsj.com/',
-        'http://www.bbc.co.uk/',
-        'http://some-made-up-domain.com/']
+'''
+concurrent.futures.Executor: abc class 
+    submit(fn, *args, **kwargs): return a 'future' object 
+    map(fn, *iterables):  
+    shutdown
+
+deadlock can occur when the callable associated  with a future
+waits on the result of another future
+'''
+
+URLS = ['http://www.baidu.com/',
+        'http://www.hao123.com/']
 
 def load_url(url, timeout):
     conn = request.urlopen(url, timeout=timeout)

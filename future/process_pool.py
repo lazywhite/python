@@ -1,4 +1,4 @@
-import concurrent.futures
+from concurrent.futures import ProcessPoolExecutor
 import math
 
 PRIMES = [
@@ -20,7 +20,7 @@ def is_prime(n):
     return True
 
 def main():
-    with concurrent.futures.ProcessPoolExecutor() as executor:
+    with ProcessPoolExecutor() as executor:
         for number, prime in zip(PRIMES, executor.map(is_prime, PRIMES)):
             print('%d is prime: %s' % (number, prime))
 
