@@ -2,13 +2,12 @@ import gevent
 from gevent import getcurrent
 from gevent.pool import Group
 
-group = Group()
-def hello_from(n):
-    print('size of group: %s' % len(group))
-    print('hello from Greenlet: %s' % id(getcurrent()))
-
-group.map(hello_from, xrange(3))
-
+'''
+imap: 返回iterator
+map: 返回list, ordered
+map_unordered: 
+imap_unordered
+'''
 
 def intensive(n):
     gevent.sleep(3-n)
@@ -16,11 +15,11 @@ def intensive(n):
 
 print('Ordered')
 ogroup = Group()
-for i in ogroup.imap(intensive, xrange(3)):
+for i in ogroup.imap(intensive, range(3)):
     print(i)
 
 print('Unordered')
 ugroup = Group()
-for i in ugroup.imap_unordered(intensive, xrange(3)):
+for i in ugroup.imap_unordered(intensive, range(3)):
     print(i)
 

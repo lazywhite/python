@@ -1,5 +1,6 @@
 import gevent
 import random
+import timeit
 
 def task(pid):
     gevent.sleep(random.randint(0,2)* 0.1)
@@ -11,11 +12,11 @@ def synchronous():
         task(i)
 
 def asynchronous():
-        threads = [gevent.spawn(task, i) for i in xrange(10)]
+        threads = [gevent.spawn(task, i) for i in range(10)]
         gevent.joinall(threads)
 
 print('synchronous:')
-synchronous()
+print(timeit.timeit('synchronous()', setup="from __main__ import synchronous", number=1))
 
 print('asynchronous:')
-asynchronous()
+print(timeit.timeit('asynchronous()', setup="from __main__ import asynchronous", number=1))

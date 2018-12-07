@@ -12,7 +12,7 @@ def worker(n):
     print('Break time!')
 
 def boss():
-    for i in xrange(1,25):
+    for i in range(1,25):
         print('boss putting job %d' % i)
         tasks.put(i)
 

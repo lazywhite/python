@@ -1,19 +1,20 @@
 import gevent
+import traceback
 
-seconds = 3
-timeout = gevent.Timeout(seconds)
+timer = gevent.Timeout(2)
 
 
-def wait(tmout):
+def wait(timer):
     print('running in greenlet')
-    tmout.start()
+    timer.start()
     gevent.sleep(20)
 
 try:
-    gevent.spawn(wait, timeout).join()
-    gevent.spawn(wait, timeout).join()
+    gevent.spawn(wait, timer).join()
+    gevent.spawn(wait, timer).join()
 
-except gevent.Timeout:
+except:
+    traceback.print_exc()
     print('could not complete')
 
 
