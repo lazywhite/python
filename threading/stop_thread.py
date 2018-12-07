@@ -1,6 +1,10 @@
 import threading
 import time
 
+'''
+优雅的手动停止线程
+'''
+
 
 def run(arg):
     t = threading.currentThread()
