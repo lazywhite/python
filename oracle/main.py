@@ -10,20 +10,22 @@ os.environ['LANG'] = 'zh_CN.UTF8'
 
 
 connection = cx_Oracle.connect("user", "password", "10.0.0.18:1521/db")
+#connection.autocommit = True
 
 print(connection.version)
 cursor = connection.cursor()
 
 # sql语句不能以;结尾
 cursor.execute("""
-    SELECT table_name
-    FROM user_tables""")
+    SELECT colA, colB
+    FROM user_table""")
 
-row = cursor.fetchall()
-for row in row:
+rows = cursor.fetchall()
+for row in rows:
     print(row)
 
-cursor.execute('''insert into tb(col1) values ('val')''')
+sql = '''insert into user_table2(colA, colB) values (:1, ':2')'''
+cursor.executeman(sql, rows)
 connection.commit()
 
 connection.close()

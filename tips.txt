@@ -293,9 +293,6 @@ lambda表达式不能跨行
 dict comprehension
     {key.upper(): value for key, value in dct.items()}
 
-python3 没有commands模块, 使用subprocess
-    subprocess.call(["ls", "-al"], shell=False)
-    subprocess.call("ls -al", shell=True)
 
 
 absolute import 

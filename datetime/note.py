@@ -27,3 +27,6 @@ a =  timedelta(hours=8)
 #b = timedelta(days=2.5, minutes=50)
 
 a.total_seconds()
+
+# get week id from datetime
+a.isocalendar() # (year, week id, week day)

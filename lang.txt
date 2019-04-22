@@ -40,8 +40,6 @@ String format
 
 assert 0>1 将会返回AssertionError
 
-os.system()=subprocess.call()
-os.popen()=subprocess.check_output()
 
 
 PEP: python enhanchment proposal
@@ -462,3 +460,5 @@ delattr(obj, name)
 
 类可以定义在方法, 类, 或类中
 函数可以定义在函数或方法中
+
+函数传递方式为pass-by-sharing, 参数仅仅是新的binding, 如果指向的值是mutable, 则变量会发生改变
