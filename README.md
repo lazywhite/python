@@ -293,7 +293,6 @@ Python2/3 practice code which refrence following books
 │   ├── _super.py
 │   ├── _super.py3
 │   └── mro.py
-├── system
 ├── testTool
 │   ├── doc_test.py
 │   └── unit_test.py
