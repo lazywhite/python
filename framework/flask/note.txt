@@ -1,0 +1,18 @@
+flask principal
+    identity
+    need
+    permission
+    identityContext
+
+
+ForeignKey('parent.id', onupdate="CASCADE", ondelete="CASCADE")
+
+
+
+BluePrint蓝图
+	蓝图有独立的template, static, url rule, view 蓝图之间相互独立, 共享配置
+	admin_bp = BluePrint("admin", __name__)
+	app.register_blueprint("admin_bp", url_prefix="admin")
+
+
+rest_plus Namespace
