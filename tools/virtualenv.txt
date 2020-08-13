@@ -1,9 +1,21 @@
 yum -y install python3-virtualenv
 
-cd .virtualenvs
+mkdir -p .venvs
+cd .venvs
 virtualenv --no-site-packages venv1
 
 source venv1/bin/activate
 
 deactive
+
+
+## virtualenvwrapper
+
+pip3 install virtualenvwrapper
+
+export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+## no python found in PATH
+ln -s /usr/bin/python3 /usr/bin/python
 
