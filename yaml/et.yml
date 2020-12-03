@@ -1,7 +1,7 @@
-root:
-    - node1: 'good'
-    - node2: 'bad' 
-
 name:
-    - first: 'bob'
-    - last: 'jeni'
+- first: bob
+- last: jeni
+root:
+- node1: good
+- node2: bad
+test: vs
