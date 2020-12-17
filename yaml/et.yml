@@ -5,3 +5,11 @@ root:
 - node1: good
 - node2: bad
 test: vs
+
+foo: |
+  this is
+  a multi line
+  content
+    indent 01
+      indent 02
+bar: content
