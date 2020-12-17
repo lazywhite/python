@@ -2,7 +2,8 @@ from gevent import sleep
 from gevent.pool import Pool
 from gevent.lock import BoundedSemaphore
 
-sem = BoundedSemaphore()
+#sem = BoundedSemaphore()
+sem = BoundedSemaphore(2) # 锁池
 
 def worker1(n):
     sem.acquire()
