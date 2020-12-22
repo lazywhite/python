@@ -1,0 +1,15 @@
+# label selector支持=, !=, in, notin
+label_selector="app=nginx,key=value'
+label_selector="app in (nginx,nginx-sts)"
+label_selector="app notin (nginx,nginx-sts)"
+label_selector="app!=nginx"
+label_selector="app" //包含"app" key
+label_selector="!app" //不包含"app" key
+client.CoreV1Api().list_namespaced_pod(namespace, label_selector=label_selector)
+
+
+
+# field selector只支持=, !=
+field_selector="metadata.name=nginx"
+field_selector="status.phase!=Running,metadata.namespace=test"
+client.CoreV1Api().list_namespaced_pod(namespace, field_selector=field_selector)

@@ -315,3 +315,11 @@ absolute import
 
 编译安装python3
     yum install tk-devel sqlite-devel readline-devel gdbm-devel xz-devel bzip2-devel openssl-devel; make -j
+
+
+执行一段字符串代码
+    exec("var1 = 100")
+    exec('''
+    for i in range(10):
+      print(i)
+    ''')

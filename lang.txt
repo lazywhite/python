@@ -29,6 +29,10 @@ Tips
     pyc文件的意义是加快模块加载速度
     print("foo", end="")
 
+    for k, v in enumerate(a_list) 带index进行迭代
+
+    dict1.update(dict2) 从dict2中更新或新增kv
+
 String format
     age = 20
     name = 'Swaroop'
@@ -437,11 +441,10 @@ pattern of leading and trailing underscore characters.
 _*　 __*__   __*
 ```
   
-## Tips
-### String format
-'{name} want to eat {food}'.format(name='cats', food='lalal')
-'{} is a {}'.format('This', 'placeholder')
-'{0} can be {1}'.format('string', 'formated')
+String format
+    '{name} want to eat {food}'.format(name='cats', food='lalal')
+    '{} is a {}'.format('This', 'placeholder')
+    '{0} can be {1}'.format('string', 'formated')
 
 operator.itemgetter
 operator.attrgetter
@@ -462,3 +465,11 @@ delattr(obj, name)
 函数可以定义在函数或方法中
 
 函数传递方式为pass-by-sharing, 参数仅仅是新的binding, 如果指向的值是mutable, 则变量会发生改变
+
+
+同时catch多种类型Exception
+    try:
+        func()
+    except (IDontLikeYouException, YouAreBeingMeanException) as e:
+        pass
+

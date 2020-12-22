@@ -17,5 +17,14 @@ class TestStatisticalFunctions(unittest.TestCase):
         with self.assertRaises(TypeError):
             average(20, 30, 70)
 
-unittest.main() # Calling from the command line invokes all tests
+## 执行方式
+## 1. python /path/to/test.py
+if __name__ == '__main__':
+    unittest.main() # Calling from the command line invokes all tests
 
+
+## 2. 指定某个测试模块
+#python -m unittest test.test_mod.TestApi
+
+## 3. 指定某个测试函数
+#python -m unittest test.test_mod.TestApi.test_create_all

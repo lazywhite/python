@@ -16,3 +16,7 @@ BluePrint蓝图
 
 
 rest_plus Namespace
+
+开启多线程, 或者多进程, 只能开启一个
+    app.run(threaded=True)
+    # app.run(processes=4)

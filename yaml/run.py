@@ -9,6 +9,7 @@ with open('et.yml','r+') as f:
 pprint(data)
 pprint(data.get("foo"))
 pprint(data.get("bar"))
+pprint(data.get("bar2"))
 
 data['test'] = "vs"
 
