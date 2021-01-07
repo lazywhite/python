@@ -13,5 +13,7 @@ pprint(data.get("bar2"))
 
 data['test'] = "vs"
 
+# 注意mode必须是wt, 不能是wb
 #with open('et.yml','wt') as f:
 #    yaml.dump(data, f)
+#    yaml.safe_dump(data, f)
