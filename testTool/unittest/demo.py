@@ -21,6 +21,7 @@ class TestStatisticalFunctions(unittest.TestCase):
 ## 1. python /path/to/test.py
 if __name__ == '__main__':
     unittest.main() # Calling from the command line invokes all tests
+  # 或者 python -m unittest /path/to/test.py
 
 
 ## 2. 指定某个测试模块

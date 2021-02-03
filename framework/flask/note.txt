@@ -20,3 +20,17 @@ rest_plus Namespace
 开启多线程, 或者多进程, 只能开启一个
     app.run(threaded=True)
     # app.run(processes=4)
+
+
+flask.g 线程安全，request级别
+    def set_value(example):
+        if not hasattr(g, "myvar"):
+            g.myvar = []
+        g.myvar.append(example)
+
+    def get_value()
+        if hasattr(g, "myvar"):
+            print(g.myvar)
+
+
+GET request.args为immutable, 可以用request.args.to_dict()获得一个字典

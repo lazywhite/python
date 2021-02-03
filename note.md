@@ -66,3 +66,15 @@ class MyClass:
     def __init__(self, foo, bar):
         pass
 ```
+
+## package
+```
+regular package
+    文件夹内包含__init__.py即可
+    foo # package
+        __init__.py # package init
+        bar.py  # module
+
+namespace package # 3.3版本引入
+    可以不局限于文件系统, 可以是一个url，甚至没有代码
+```

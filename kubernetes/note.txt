@@ -16,3 +16,10 @@ client.CoreV1Api().list_namespaced_pod(namespace, field_selector=field_selector)
 
 
 # custom object api, 可以用来获取sts, deployment这种对象， 无法获取configmap
+
+obj = client.CustomObjectsApi().list_namespaced_custom_object("apps", "v1", "default", "statefulsets")
+
+obj为一个dict
+for i in obj.get("items"):
+    pass
+

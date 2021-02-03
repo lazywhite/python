@@ -5,5 +5,5 @@ def f(a,b):
     '''
     return (a+b)
 
-import doctest
-doctest.testmod()
+# how to run test
+# python -m doctest -v demo.py

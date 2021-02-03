@@ -1,5 +1,12 @@
-# upgrade pip
+# upgrade package
+
+# for pip
 pip install -U pip setuptools
+python -m pip install --upgrade pip
+
+# for other package
+pip install -U <package> # 升级到最新版
+pip install Django==1.5 # 安装指定版本
 
 # output installed packages in requirements format
 pip freeze > requirements.txt 

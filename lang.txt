@@ -473,3 +473,21 @@ delattr(obj, name)
     except (IDontLikeYouException, YouAreBeingMeanException) as e:
         pass
 
+
+copy一个对象
+    import copy
+    a = dict(key="100")
+    b = copy.deepcopy(a)
+
+
+dict操作
+    a = {
+        "key1": 100,
+        "key3": 100,
+    }
+    b = {
+        "key1": 200,
+        "key2": 100,
+    }
+
+    a.update(b) //如果有相同key则覆盖，没有则新建
